@@ -1,13 +1,15 @@
 # Jack n' Co
 
 ## A game of blackjack with a little twist.
-- What will the application do? <br>
+
+### What will the application do? <br>
 The application is a game of **blackjack**, but with a twist which is the player can take one card and hold it.
 Later, the player can put it back again and can do some sort of a **combo**. Instead of receiving the card from the dealer, 
 the player can use his or her own cards. The combos can earn the player extra **money**. The leaderboard would showcase the amount of money the users made in an hour.
-- Who will use it? <br>
+### Who will use it? <br>
 Mostly people that is **bored** with work and university life will play this game for **entertainment**.
-- Why is this project of interest to you? <br>
+
+### Why is this project of interest to you? <br>
 I am interested in making this game because of the logic behind the game. It is simple yet complex at the same time.
 <br>
 
