@@ -7,9 +7,9 @@ public class Dealer {
         giveCards();
         giveOptions();
 
-        playOption(Options.STAND);
-        playOption(Options.HIT);
-        playOption(Options.DOUBLE);
+//        playOption(Options.STAND);
+//        playOption(Options.HIT);
+//        playOption(Options.DOUBLE);
     }
 
     //EFFECTS: distribute cards to player and dealer
