@@ -9,46 +9,56 @@ public class Game {
     private boolean isPlaying;
     private Scanner input;
 
+    private Player player;
+    private Dealer dealer;
+
     // starts the game with opening the start menu
     public Game() {
-        startMenu();
-    }
+        player = new Player();
 
-    // EFFECTS: giving user choice of playing or quitting the game
-    public void startMenu() {
-        input = new Scanner(System.in);
-        System.out.println("Welcome to Jack n' Co!");
-        System.out.println("Press 1 to play. Press 2 to quit.");
-        processInput();
+        openMenu();
     }
 
     // EFFECTS: processes user inputs
     public void processInput() {
-        String choice = input.next();
+        input = new Scanner(System.in);
+        String choice = input.next().toLowerCase();
 
-        if (choice.equals("1")) {
-            startGame();
-        } else if (choice.equals("2")) {
-            System.out.println("Exiting game...");
-            System.exit(0);
-        } else {
-            System.out.println("Input is not valid!");
-            processInput();
+        switch (choice) {
+            case "p":
+                startGame();
+                break;
+            case "b":
+                System.out.println(player.getMoney());
+                break;
+            case  "q":
+                System.out.println("Exiting game...");
+                break;
+            default:
+                System.out.println("Input is not valid!");
+                processInput();
+                break;
         }
+    }
+
+    public void openMenu() {
+        System.out.println("Welcome to Jack n' Co!");
+        System.out.println("(p) Play Game");
+        System.out.println("(b) Check Balance");
+        System.out.println("(q) Quit Game");
+        processInput();
     }
 
     // EFFECTS: starts the game
     public void startGame() {
         isPlaying = true;
 
-        Dealer dealer = new Dealer();
-        Player player = new Player();
+        dealer = new Dealer();
 
-        while (isPlaying) {
-            System.out.println("A");
+//        while (isPlaying) {
+//
+//        }
 
-        }
-
-        startMenu();
+        openMenu();
     }
 }
