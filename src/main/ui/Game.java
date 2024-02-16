@@ -1,7 +1,8 @@
 package ui;
 
 import model.Dealer;
-import model.Player;
+import model.User;
+import model.Table;
 
 import java.util.Scanner;
 
@@ -9,12 +10,13 @@ public class Game {
     private boolean isPlaying;
     private Scanner input;
 
-    private Player player;
+    private User user;
     private Dealer dealer;
+    private Table table;
 
     // starts the game with opening the start menu
     public Game() {
-        player = new Player();
+        user = new User();
 
         openMenu();
     }
@@ -29,15 +31,15 @@ public class Game {
                 startGame();
                 break;
             case "b":
-                System.out.println(player.getMoney());
+                System.out.println("Your balance is: " + user.getMoney());
+                openMenu();
                 break;
             case  "q":
                 System.out.println("Exiting game...");
+                System.exit(0);
                 break;
             default:
                 System.out.println("Input is not valid!");
-                processInput();
-                break;
         }
     }
 
@@ -54,10 +56,12 @@ public class Game {
         isPlaying = true;
 
         dealer = new Dealer();
+        table = new Table(user, dealer);
 
-//        while (isPlaying) {
-//
-//        }
+
+        while (isPlaying) {
+
+        }
 
         openMenu();
     }

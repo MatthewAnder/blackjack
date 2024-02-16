@@ -13,9 +13,12 @@ public class Cards {
         return ranks.getValue();
     }
 
-    public String getCardType() {
+    public String getSuits() {
         return suits.toString();
     }
+
+
+    public String getRank() { return ranks.toString(); }
 }
 
 

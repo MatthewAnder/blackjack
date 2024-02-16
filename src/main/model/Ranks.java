@@ -11,9 +11,9 @@ public enum Ranks {
     EIGHT("8", 8),
     NINE("9", 9),
     TEN("10", 10),
-    JACK("Jack", 11),
-    QUEEN("Queen", 11),
-    KING("King", 11);
+    JACK("Jack", 10),
+    QUEEN("Queen", 10),
+    KING("King", 10);
 
     private String name;
     private int value;
@@ -24,11 +24,11 @@ public enum Ranks {
     }
 
     public int getValue() {
-        return value;
+        return this.value;
     }
 
     @Override
     public String toString() {
-        return name;
+        return this.name;
     }
 }
