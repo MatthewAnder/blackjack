@@ -18,7 +18,9 @@ public class Cards {
     }
 
 
-    public String getRank() { return ranks.toString(); }
+    public String getRank() {
+        return ranks.toString();
+    }
 }
 
 
