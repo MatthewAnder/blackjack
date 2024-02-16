@@ -3,6 +3,7 @@ package ui;
 import model.Dealer;
 import model.User;
 
+import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.util.Scanner;
 
 public class Game {
@@ -30,7 +31,7 @@ public class Game {
                 startGame();
                 break;
             case "b":
-                System.out.println("Your balance is: " + user.getMoney());
+                System.out.println("Your balance is: $" + user.getMoney());
                 openMenu();
                 break;
             case  "q":

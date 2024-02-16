@@ -21,6 +21,10 @@ public class Cards {
     public String getRank() {
         return ranks.toString();
     }
+
+    public String getFormatCard() {
+        return this.ranks + " [" + this.suits.toString().toUpperCase() + "]";
+    }
 }
 
 

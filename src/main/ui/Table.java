@@ -30,7 +30,10 @@ public class Table {
         placeBet();
     }
 
+    // REQUIRES: input is not a string
+    // EFFECTS:
     public void placeBet() {
+        System.out.println("Your balance is : $" + user.getMoney());
         System.out.print("Place bet: $");
         int bet = scanner.nextInt();
 
@@ -51,18 +54,18 @@ public class Table {
     // MODIFIES: this
     // EFFECTS: distribute cards to player and dealer
     public void distributeCards() {
-        Cards userCard1 = drawCard();
-        Cards userCard2 = drawCard();
-        Cards dealerCard1 = drawCard();
-        Cards dealerCard2 = drawCard();
+        Cards userCard1 = decks.getRandomCard();
+        Cards userCard2 = decks.getRandomCard();
+        Cards dealerCard1 = decks.getRandomCard();
+        Cards dealerCard2 = decks.getRandomCard();
 
         user.addHand(userCard1);
         user.addHand(userCard2);
         dealer.addHand(dealerCard1);
         dealer.addHand(dealerCard2);
 
-        System.out.printf("Dealer card is %s[%S] and unknown %n", dealerCard1.getValue(), dealerCard1.getSuits());
-        System.out.printf("Your card is %s[] and %s %n", userCard1.getValue(), userCard2.getValue());
+        System.out.printf("Dealer card is %s and unknown %n", dealerCard1.getFormatCard());
+        System.out.printf("Your card is %s and %s %n", userCard1.getFormatCard(), userCard2.getFormatCard());
 
         giveOptions();
     }
@@ -92,36 +95,36 @@ public class Table {
     //         the dealer's draw to his own hand.
     public void playStand() {
         while (dealer.getValueOfHand() <= 15) {
-            dealer.addHand(drawCard());
+            dealer.addHand(decks.getRandomCard());
         }
         System.out.println(dealer.getValueOfHand());
         checkHand();
     }
 
     public void playHit() {
-        Cards card = drawCard();
+        Cards card = decks.getRandomCard();
         user.addHand(card);
-        System.out.printf("You draw %s [%S] %n", card.getRank(), card.getSuits());
+
+        System.out.println("You got " + card.getFormatCard());
+        System.out.print("Cards in your hand is: ");
+        for (Cards eachCard : user.getHand()) {
+            System.out.printf(eachCard.getFormatCard() + " ");
+        }
+        System.out.printf("%n");
 
         if (user.getValueOfHand() >= 22) {
             System.out.println("Your total is " + user.getValueOfHand());
             System.out.println("You bust!");
             System.out.println("You lost $" + betOnTable);
         } else if (user.getValueOfHand() <= 21) {
-            System.out.println(user.getValueOfHand());
             giveOptions();
         }
     }
 
     public void playDouble() {
         betOnTable *= 2;
-        user.addHand(drawCard());
+        user.addHand(decks.getRandomCard());
         playStand();
-    }
-
-    // EFFECTS: return a random card number and type
-    public Cards drawCard() {
-        return decks.getRandomCard();
     }
 
     // EFFECTS: compare the value of the dealer's hand and the user's hand and determine the winner
@@ -136,7 +139,7 @@ public class Table {
             System.out.println("You win!");
             System.out.println("You get $" + betOnTable * 2);
             user.giveMoney(betOnTable * 2);
-        } else if (user.getValueOfHand() < dealer.getValueOfHand()) {
+        } else if (user.getValueOfHand() <= dealer.getValueOfHand()) {
             System.out.println("You lose!");
             System.out.println("You lose $" + betOnTable);
         }
