@@ -2,7 +2,6 @@ package ui;
 
 import model.Dealer;
 import model.User;
-import model.Table;
 
 import java.util.Scanner;
 

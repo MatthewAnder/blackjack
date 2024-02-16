@@ -1,5 +1,9 @@
-package model;
+package ui;
 
+import model.Cards;
+import model.Dealer;
+import model.Decks;
+import model.User;
 import model.exceptions.NoMoneyException;
 
 import java.util.Scanner;

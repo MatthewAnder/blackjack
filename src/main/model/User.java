@@ -3,7 +3,6 @@ package model;
 import model.exceptions.NoMoneyException;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class User implements Player {
