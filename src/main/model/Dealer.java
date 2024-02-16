@@ -8,27 +8,10 @@ import java.util.Scanner;
 public class Dealer implements Player {
     private List<Cards> hand;
 
-    private Random random;
-    private Scanner scanner;
-
-    private Decks decks;
-
-
     //EFFECTS: construct a dealer
     public Dealer() {
-        random = new Random();
-        scanner = new Scanner(System.in);
-        decks = new Decks();
-
         hand = new ArrayList<>();
     }
-
-    // EFFECTS: return a random card number and type
-    public Cards drawCard() {
-        return decks.getRandomCard();
-    }
-
-
 
     // REQUIRES: card is not null
     // MODIFIES: this

@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.NoMoneyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +16,26 @@ public class UserTest {
 
     @Test
     public void testTakeMoney() {
-        assertEquals(100, user.takeMoney(100));
-        assertEquals(900, user.getMoney());
+
+        try {
+            assertEquals(100, user.takeMoney(100));
+            assertEquals(900, user.getMoney());
+        } catch (NoMoneyException e) {
+            fail("Unexpected NoMoneyException");
+        }
+    }
+
+    @Test
+    public void testTakeMoneyExpectedException() {
+
+        try {
+            user.takeMoney(1001);
+            fail("No Exception was thrown");
+        } catch (NoMoneyException e) {
+            //
+        }
+
+        assertEquals(1000, user.getMoney());
     }
 
     @Test

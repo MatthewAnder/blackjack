@@ -1,5 +1,7 @@
 package model;
 
+import model.exceptions.NoMoneyException;
+
 import java.util.Scanner;
 
 public class Table {
@@ -29,7 +31,14 @@ public class Table {
         int bet = scanner.nextInt();
 
         betOnTable = bet;
-        user.takeMoney(bet);
+
+        try {
+            user.takeMoney(bet);
+        } catch (NoMoneyException e) {
+            System.out.println("Balance not valid! Bet again.");
+            placeBet();
+        }
+
         System.out.println("- $" + betOnTable + " from bank account");
 
         distributeCards();

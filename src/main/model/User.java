@@ -1,5 +1,7 @@
 package model;
 
+import model.exceptions.NoMoneyException;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,13 +20,13 @@ public class User implements Player {
     // REQUIRES: amount <= money
     // MODIFIES: this
     // EFFECTS:
-    public int takeMoney(int amount) {
-        if (amount <= money) {
+    public int takeMoney(int amount) throws NoMoneyException {
+        if (amount <= money && amount > 0) {
             money -= amount;
             return amount;
         }
 
-        return 0;
+        throw new NoMoneyException();
     }
 
     public void giveMoney(int amount) {
