@@ -8,4 +8,6 @@ public interface Player {
     public List<Cards> getHand();
 
     public int getValueOfHand();
+
+    public void resetHand();
 }

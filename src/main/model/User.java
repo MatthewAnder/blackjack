@@ -11,8 +11,24 @@ public class User implements Player {
     private List<Chips> chips;
 
     public User() {
-        this.money = 0;
+        this.money = 1000;
         hand = new ArrayList<>();
+    }
+
+    // REQUIRES: amount <= money
+    // MODIFIES: this
+    // EFFECTS:
+    public int takeMoney(int amount) {
+        if (amount <= money) {
+            money -= amount;
+            return amount;
+        }
+
+        return 0;
+    }
+
+    public void giveMoney(int amount) {
+        money += amount;
     }
 
     public int getMoney() {
@@ -39,5 +55,10 @@ public class User implements Player {
         }
 
         return total;
+    }
+
+    @Override
+    public void resetHand() {
+        hand = new ArrayList<>();
     }
 }

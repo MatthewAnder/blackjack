@@ -38,6 +38,10 @@ public class Game {
                 System.out.println("Exiting game...");
                 System.exit(0);
                 break;
+            case "x":
+                isPlaying = false;
+                openMenu();
+                break;
             default:
                 System.out.println("Input is not valid!");
         }
@@ -51,16 +55,20 @@ public class Game {
         processInput();
     }
 
+    public void inGameMenu() {
+        System.out.println("(p) Continue");
+        System.out.println("(x) Back to Start Menu");
+        processInput();
+    }
+
     // EFFECTS: starts the game
     public void startGame() {
         isPlaying = true;
 
-        dealer = new Dealer();
-        table = new Table(user, dealer);
-
-
         while (isPlaying) {
-
+            dealer = new Dealer();
+            table = new Table(user, dealer);
+            inGameMenu();
         }
 
         openMenu();
