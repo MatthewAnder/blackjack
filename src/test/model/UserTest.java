@@ -32,15 +32,16 @@ public class UserTest {
     public void testTakeMoneyExpectedException() {
 
         try {
-            user.takeMoney(1001);
-            user.takeMoney(0);
-            user.takeMoney(-1);
+            assertEquals(1000, user.takeMoney(1001));
+            assertEquals(1000, user.takeMoney(0));
+            assertEquals(1000, user.takeMoney(1000));
+            assertEquals(0, user.getMoney());
+            assertEquals(0, user.takeMoney(0));
+            assertEquals(0, user.takeMoney(-1));
             fail("No Exception was thrown");
         } catch (NoMoneyException e) {
             //
         }
-
-        assertEquals(1000, user.getMoney());
     }
 
     @Test

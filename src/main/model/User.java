@@ -19,12 +19,12 @@ public class User implements Player {
     // MODIFIES: this
     // EFFECTS:
     public int takeMoney(int amount) throws NoMoneyException {
-        if (amount <= money && amount > 0) {
-            money -= amount;
-            return amount;
+        if (amount > money || amount <= 0) {
+            throw new NoMoneyException();
         }
 
-        throw new NoMoneyException();
+        money -= amount;
+        return amount;
     }
 
     // REQUIRES: amount > 0
