@@ -19,7 +19,9 @@ public class User implements Player {
     // MODIFIES: this
     // EFFECTS:
     public int takeMoney(int amount) throws NoMoneyException {
-        if (amount > money || amount <= 0) {
+        if (amount > money) {
+            throw new NoMoneyException();
+        } else if (amount <= 0) {
             throw new NoMoneyException();
         }
 
