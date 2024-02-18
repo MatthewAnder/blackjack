@@ -6,6 +6,7 @@ import model.Decks;
 import model.User;
 import model.exceptions.NoMoneyException;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Table {
@@ -27,24 +28,26 @@ public class Table {
         scanner = new Scanner(System.in);
 
         decks = new Decks();
-        placeBet();
+
+        try {
+            placeBet();
+        } catch (InputMismatchException e) {
+            System.out.println("Continue and Try Again!");
+        } catch (NoMoneyException e) {
+            System.out.println("Balance not valid! Continue and Try Again.");
+        }
     }
 
     // REQUIRES: input is not a string
     // EFFECTS:
-    public void placeBet() {
+    public void placeBet() throws InputMismatchException, NoMoneyException {
         System.out.println("Your balance is : $" + user.getMoney());
         System.out.print("Place bet: $");
         int bet = scanner.nextInt();
 
         betOnTable = bet;
 
-        try {
-            user.takeMoney(bet);
-        } catch (NoMoneyException e) {
-            System.out.println("Balance not valid! Bet again.");
-            placeBet();
-        }
+        user.takeMoney(bet);
 
         System.out.println("- $" + betOnTable + " from bank account");
 
@@ -122,6 +125,7 @@ public class Table {
     }
 
     public void playDouble() {
+        // TODO: THIS FEATURE IS VERY BUGGY
         betOnTable *= 2;
         user.addHand(decks.getRandomCard());
         playStand();

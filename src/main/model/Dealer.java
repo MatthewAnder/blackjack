@@ -2,8 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 
 public class Dealer implements Player {
     private List<Cards> hand;
@@ -21,11 +19,13 @@ public class Dealer implements Player {
         hand.add(card);
     }
 
+    // EFFECTS: returns the dealer's hand
     @Override
     public List<Cards> getHand() {
         return hand;
     }
 
+    // EFFECTS: returns the total value of the cards that are in the dealer's hand
     @Override
     public int getValueOfHand() {
         int total = 0;
@@ -36,6 +36,8 @@ public class Dealer implements Player {
         return total;
     }
 
+    // MODIFIES: this
+    // EFFECTS: completely reset the hand by making a new list
     @Override
     public void resetHand() {
         hand = new ArrayList<>();

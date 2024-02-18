@@ -16,13 +16,14 @@ public class UserTest {
 
     @Test
     public void testTakeMoney() {
-
         try {
             assertEquals(100, user.takeMoney(100));
             assertEquals(900, user.getMoney());
+            assertEquals(900, user.takeMoney(900));
         } catch (NoMoneyException e) {
             fail("Unexpected NoMoneyException");
         }
+        assertEquals(0, user.getMoney());
     }
 
     @Test
@@ -30,6 +31,8 @@ public class UserTest {
 
         try {
             user.takeMoney(1001);
+            user.takeMoney(0);
+            user.takeMoney(-1);
             fail("No Exception was thrown");
         } catch (NoMoneyException e) {
             //
