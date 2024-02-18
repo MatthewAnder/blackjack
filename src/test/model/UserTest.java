@@ -38,6 +38,8 @@ public class UserTest {
             assertEquals(0, user.getMoney());
             assertEquals(0, user.takeMoney(0));
             assertEquals(0, user.takeMoney(-1));
+            user.takeMoney(-1);
+            user.takeMoney(0);
             fail("No Exception was thrown");
         } catch (NoMoneyException e) {
             //
