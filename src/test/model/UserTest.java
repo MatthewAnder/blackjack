@@ -17,9 +17,11 @@ public class UserTest {
     @Test
     public void testTakeMoney() {
         try {
+            assertEquals(1, user.takeMoney(1));
             assertEquals(100, user.takeMoney(100));
-            assertEquals(900, user.getMoney());
-            assertEquals(900, user.takeMoney(900));
+            assertEquals(899, user.getMoney());
+            assertEquals(898, user.takeMoney(898));
+            assertEquals(1, user.takeMoney(1));
         } catch (NoMoneyException e) {
             fail("Unexpected NoMoneyException");
         }
