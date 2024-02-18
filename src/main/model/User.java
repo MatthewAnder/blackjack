@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.NegativeMoneyException;
 import model.exceptions.NoMoneyException;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ public class User implements Player {
     private int money;
     private List<Cards> hand;
 
-    // EFFECTS: constructs a user with a default $1000 money and and empty hand
+    // EFFECTS: constructs a user with a default $1000 money and empty hand
     public User() {
         this.money = 1000;
         hand = new ArrayList<>();
@@ -18,11 +19,11 @@ public class User implements Player {
     // REQUIRES: amount <= money and amount > 0
     // MODIFIES: this
     // EFFECTS:
-    public int takeMoney(int amount) throws NoMoneyException {
+    public int takeMoney(int amount) throws NoMoneyException, NegativeMoneyException {
         if (amount > money) {
             throw new NoMoneyException();
         } else if (amount <= 0) {
-            throw new NoMoneyException();
+            throw new NegativeMoneyException();
         }
 
         money -= amount;

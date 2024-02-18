@@ -4,6 +4,7 @@ import model.Cards;
 import model.Dealer;
 import model.Decks;
 import model.User;
+import model.exceptions.NegativeMoneyException;
 import model.exceptions.NoMoneyException;
 
 import java.util.InputMismatchException;
@@ -34,13 +35,15 @@ public class Table {
         } catch (InputMismatchException e) {
             System.out.println("Continue and Try Again!");
         } catch (NoMoneyException e) {
-            System.out.println("Balance not valid! Continue and Try Again.");
+            System.out.println("You do not have that money! Continue and Try Again.");
+        } catch (NegativeMoneyException e) {
+            System.out.println("Money is negative! Continue and Try Again");
         }
     }
 
     // REQUIRES: input is not a string
     // EFFECTS:
-    public void placeBet() throws InputMismatchException, NoMoneyException {
+    public void placeBet() throws InputMismatchException, NoMoneyException, NegativeMoneyException {
         System.out.println("Your balance is : $" + user.getMoney());
         System.out.print("Place bet: $");
         int bet = scanner.nextInt();

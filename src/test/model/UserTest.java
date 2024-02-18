@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.NegativeMoneyException;
 import model.exceptions.NoMoneyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,8 @@ public class UserTest {
             assertEquals(1, user.takeMoney(1));
         } catch (NoMoneyException e) {
             fail("Unexpected NoMoneyException");
+        } catch (NegativeMoneyException e) {
+            fail("Unexpected NegativeMoneyException");
         }
         assertEquals(0, user.getMoney());
     }
@@ -32,18 +35,45 @@ public class UserTest {
     public void testTakeMoneyExpectedException() {
 
         try {
-            assertEquals(1000, user.takeMoney(1001));
-            assertEquals(1000, user.takeMoney(0));
-            assertEquals(1000, user.takeMoney(1000));
-            assertEquals(0, user.getMoney());
-            assertEquals(0, user.takeMoney(0));
-            assertEquals(0, user.takeMoney(-1));
+            user.takeMoney(1001);
+            fail("No Exception was thrown");
+        } catch (NoMoneyException e) {
+            // go right through
+        } catch (NegativeMoneyException e) {
+            fail("Unexpected NegativeMoneyException");
+        }
+
+        assertEquals(1000, user.getMoney());
+    }
+
+    @Test
+    public void testTakeMoneyExpectedExceptionNegativeMoney() {
+
+        try {
             user.takeMoney(-1);
+            fail("No Exception was thrown");
+        } catch (NoMoneyException e) {
+            fail("Unexpect NoMoneyException");
+        } catch (NegativeMoneyException e) {
+            // go right through
+        }
+
+        assertEquals(1000, user.getMoney());
+    }
+
+    @Test
+    public void testTakeMoneyExpectedExceptionZero() {
+
+        try {
             user.takeMoney(0);
             fail("No Exception was thrown");
         } catch (NoMoneyException e) {
-            //
+            fail("Unexpect NoMoneyException");
+        } catch (NegativeMoneyException e) {
+            // go right through
         }
+
+        assertEquals(1000, user.getMoney());
     }
 
     @Test
