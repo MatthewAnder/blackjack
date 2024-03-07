@@ -20,3 +20,4 @@ I am interested in making this game because of the logic behind the game. It is 
 - As a user, I want to play a combo from the list of cards the user has.
 - As a user, I want to be able to select a difficulty of the **mode**.
 - As a user, I want to buy accessories with my money  (if time permits).
+- As a user, I want to save my money and can choose to save my history session.
