@@ -2,17 +2,19 @@ package model;
 
 import model.exceptions.NegativeMoneyException;
 import model.exceptions.NoMoneyException;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class User implements Player {
+public class User implements Player, Writable {
     private int money;
     private List<Cards> hand;
 
     // EFFECTS: constructs a user with a default $1000 money and empty hand
-    public User() {
-        this.money = 1000;
+    public User(int money) {
+        this.money = money;
         hand = new ArrayList<>();
     }
 
@@ -57,6 +59,16 @@ public class User implements Player {
         return this.hand;
     }
 
+    public String getFormatHand() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Your card: ");
+        for (Cards eachCard : getHand()) {
+            sb.append(eachCard.getFormatCard() + " ");
+        }
+
+        return sb.toString();
+    }
+
     // EFFECTS: returns the total value of the cards that is in the user's hand
     @Override
     public int getValueOfHand() {
@@ -73,5 +85,12 @@ public class User implements Player {
     @Override
     public void resetHand() {
         hand = new ArrayList<>();
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("money", getMoney());
+        return json;
     }
 }

@@ -12,7 +12,7 @@ public class UserTest {
 
     @BeforeEach
     public void runBefore() {
-        user = new User();
+        user = new User(1000);
     }
 
     @Test

@@ -25,6 +25,16 @@ public class Dealer implements Player {
         return hand;
     }
 
+    public String getFormatHand() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Dealer's card: ");
+        for (Cards eachCard : getHand()) {
+            sb.append(eachCard.getFormatCard() + " ");
+        }
+
+        return sb.toString();
+    }
+
     // EFFECTS: returns the total value of the cards that are in the dealer's hand
     @Override
     public int getValueOfHand() {
@@ -35,6 +45,8 @@ public class Dealer implements Player {
 
         return total;
     }
+
+
 
     // MODIFIES: this
     // EFFECTS: completely reset the hand by making a new list

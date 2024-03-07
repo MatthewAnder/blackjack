@@ -1,9 +1,6 @@
 package ui;
 
-import model.Cards;
-import model.Dealer;
-import model.Decks;
-import model.User;
+import model.*;
 import model.exceptions.NegativeMoneyException;
 import model.exceptions.NoMoneyException;
 
@@ -14,15 +11,17 @@ public class Table {
     private User user;
     private Dealer dealer;
     private Decks decks;
+    private History history;
 
     private int betOnTable;
 
     private Scanner scanner;
 
     // EFFECTS: constructs a table that can connect between the player and the dealer
-    public Table(User user, Dealer dealer) {
+    public Table(User user, Dealer dealer, History history) {
         this.user = user;
         this.dealer = dealer;
+        this.history = history;
         user.resetHand();
         dealer.resetHand();
 
@@ -94,6 +93,7 @@ public class Table {
                 break;
             default:
                 System.out.println("Input not valid");
+                giveOptions();
         }
     }
 
@@ -101,6 +101,7 @@ public class Table {
     //         the dealer's draw to his own hand.
     public void playStand() {
         while (dealer.getValueOfHand() <= 15) {
+            // TODO: prints everytime the dealer add a card
             dealer.addHand(decks.getRandomCard());
         }
         System.out.println(dealer.getValueOfHand());
@@ -118,11 +119,9 @@ public class Table {
         }
         System.out.printf("%n");
 
-        if (user.getValueOfHand() >= 22) {
-            System.out.println("Your total is " + user.getValueOfHand());
-            System.out.println("You bust!");
-            System.out.println("You lost $" + betOnTable);
-        } else if (user.getValueOfHand() <= 21) {
+        if (user.getValueOfHand() >= 21) {
+            checkHand();
+        } else if (user.getValueOfHand() < 21) {
             giveOptions();
         }
     }
@@ -136,19 +135,32 @@ public class Table {
 
     // EFFECTS: compare the value of the dealer's hand and the user's hand and determine the winner
     public void checkHand() {
-        if (user.getValueOfHand() >= 22) {
+        boolean win = false;
+
+        if (user.getValueOfHand() == 21) {
+            System.out.println("BLACKJACK!!!");
+            System.out.println("You get $" + betOnTable * 2);
+
+            win = true;
+            user.giveMoney(betOnTable * 2);
+        } else if (user.getValueOfHand() >= 22) {
             System.out.println("You busted!");
         } else if (dealer.getValueOfHand() >= 22) {
             System.out.println("Dealer busted!");
             System.out.println("You get $" + betOnTable * 2);
+
+            win = true;
             user.giveMoney(betOnTable * 2);
         } else if (user.getValueOfHand() > dealer.getValueOfHand()) {
             System.out.println("You win!");
             System.out.println("You get $" + betOnTable * 2);
+            win = true;
             user.giveMoney(betOnTable * 2);
         } else if (user.getValueOfHand() <= dealer.getValueOfHand()) {
             System.out.println("You lose!");
             System.out.println("You lose $" + betOnTable);
         }
+
+        history.putHistory(user.getFormatHand(), dealer.getFormatHand(), betOnTable, win);
     }
 }
