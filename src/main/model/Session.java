@@ -7,15 +7,24 @@ import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Session implements Writable {
-    List<History> histories;
+    List<String> histories;
+    int userMoney;
 
-    public Session() {
-        histories = new ArrayList<>();
+    public Session(Integer userMoney, List<String> histories) {
+        this.userMoney = userMoney;
+        this.histories = histories;
+    }
+
+    public int getUserMoney() {
+        return userMoney;
+    }
+
+    public List<String> getHistories() {
+        return histories;
     }
 
     @Override
@@ -24,6 +33,7 @@ public class Session implements Writable {
         DateFormat dateFormat = new SimpleDateFormat("MM-dd");
 
         json.put("time", dateFormat.format(new Date()));
+        json.put("money", userMoney);
         json.put("histories", historiesToJson());
         return json;
     }
@@ -32,8 +42,8 @@ public class Session implements Writable {
     private JSONArray historiesToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (History h : histories) {
-            jsonArray.put(h.toJson());
+        for (String h : histories) {
+            jsonArray.put(h);
         }
 
         return jsonArray;

@@ -5,13 +5,12 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.List;
-import java.util.ArrayList;
 
 public class History implements Writable {
     List<String> history;
 
-    public History() {
-        history = new ArrayList<>();
+    public History(List<String> history) {
+        this.history = history;
     }
 
     public void putHistory(String userHand, String enemyHand, int moneyOnTable, boolean isWin) {
@@ -20,7 +19,7 @@ public class History implements Writable {
         sb.append(enemyHand + "\n");
 
         if (isWin) {
-            sb.append("$" + moneyOnTable);
+            sb.append("+ $" + moneyOnTable);
         } else {
             sb.append("- $" + moneyOnTable);
         }

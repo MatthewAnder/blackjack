@@ -1,11 +1,14 @@
 package persistence;
 
+import model.Session;
 import model.User;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.json.*;
@@ -21,10 +24,10 @@ public class JsonReader {
 
     // EFFECTS: reads workroom from file and returns it;
     // throws IOException if an error occurs reading data from file
-    public User read() throws IOException {
+    public Session read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        return parseUser(jsonObject);
+        return parseSession(jsonObject);
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -39,10 +42,16 @@ public class JsonReader {
     }
 
     // EFFECTS: parses user from JSON object and returns it
-    private User parseUser(JSONObject jsonObject) {
+    private Session parseSession(JSONObject jsonObject) {
         Integer money = jsonObject.getInt("money");
-        User usr = new User(money);
-        return usr;
+        List<String> histories = new ArrayList<String>();
+
+        for (Object history : jsonObject.getJSONArray("histories")) {
+            histories.add(history.toString());
+        }
+
+        Session session = new Session(money, histories);
+        return session;
     }
 }
 
