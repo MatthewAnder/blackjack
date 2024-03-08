@@ -1,16 +1,13 @@
 package model;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import persistence.Writable;
-
+import java.util.ArrayList;
 import java.util.List;
 
-public class History implements Writable {
+public class History {
     List<String> history;
 
-    public History(List<String> history) {
-        this.history = history;
+    public History() {
+        this.history = new ArrayList<>();
     }
 
     public void putHistory(String userHand, String enemyHand, int moneyOnTable, boolean isWin) {
@@ -28,29 +25,15 @@ public class History implements Writable {
         history.add(sb.toString());
     }
 
+    public void addHistory(List<String> history) {
+        this.history.addAll(history);
+    }
+
     public List<String> getHistory() {
         if (history.isEmpty()) {
             return null;
         }
 
         return history;
-    }
-
-    @Override
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("history", stringToJson());
-        return json;
-    }
-
-    // EFFECTS: returns things in this history as a JSON array
-    private JSONArray stringToJson() {
-        JSONArray jsonArray = new JSONArray();
-
-        for (String h : history) {
-            jsonArray.put(h);
-        }
-
-        return jsonArray;
     }
 }

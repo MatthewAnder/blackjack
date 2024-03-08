@@ -36,6 +36,19 @@ public class DealerTest {
     }
 
     @Test
+    public void testGetFormatHand() {
+        Cards card1 = new Cards(Suits.CLUB, Ranks.FOUR);
+        Cards card2 = new Cards(Suits.SPADE, Ranks.KING);
+        assertEquals("Dealer's card: ", dealer.getFormatHand());
+        dealer.addHand(card1);
+        assertEquals("Dealer's card: 4 [CLUBS] ", dealer.getFormatHand());
+
+        dealer.addHand(card2);
+
+        assertEquals("Dealer's card: 4 [CLUBS] King [SPADES] ", dealer.getFormatHand());
+    }
+
+    @Test
     public void testGetValueOfHand() {
         assertEquals(0, dealer.getValueOfHand());
         dealer.addHand(new Cards(Suits.SPADE, Ranks.FIVE));

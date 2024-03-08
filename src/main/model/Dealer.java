@@ -25,6 +25,8 @@ public class Dealer implements Player {
         return hand;
     }
 
+    // EFFECTS: return a formatted version of dealer's hand
+    @Override
     public String getFormatHand() {
         StringBuilder sb = new StringBuilder();
         sb.append("Dealer's card: ");

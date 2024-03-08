@@ -32,10 +32,11 @@ public class Game {
 
         try {
             user = new User(jsonReader.read().getUserMoney());
-            history = new History(jsonReader.read().getHistories());
         } catch (IOException e) {
             System.out.println("Error! Something is up!");
         }
+
+        history = new History();
 
         startGame();
     }
@@ -57,20 +58,17 @@ public class Game {
                 isPlaying = true;
                 startGame();
                 break;
-            case "c":
-                isPlaying = true;
+            case "c": isPlaying = true;
                 break;
-            case "b":
-                System.out.println("Your balance is: $" + user.getMoney());
+            case "b": System.out.println("Your balance is: $" + user.getMoney());
                 break;
-            case "h":
-                showHistory();
+            case "l": loadSession();
                 break;
-            case  "q":
-                quitGame();
+            case "h": showHistory();
                 break;
-            case "x":
-                isPlaying = false;
+            case  "q": quitGame();
+                break;
+            case "x": isPlaying = false;
                 break;
             default: return false;
         }
@@ -81,6 +79,7 @@ public class Game {
         System.out.println("Welcome to Jack n' Co!");
         System.out.println("\t(p) Play Game");
         System.out.println("\t(b) Check Balance");
+        System.out.println("\t(l) Load Last Session History");
         System.out.println("\t(h) Check Session History");
         System.out.println("\t(q) Quit Game");
         processInput();
@@ -151,6 +150,15 @@ public class Game {
             jsonWriter.write(session);
             jsonWriter.close();
         } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    public void loadSession() {
+        System.out.println("Loading History...");
+        try {
+            history.addHistory(jsonReader.read().getHistories());
+        } catch (IOException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }

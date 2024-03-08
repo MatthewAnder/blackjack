@@ -2,13 +2,11 @@ package model;
 
 import model.exceptions.NegativeMoneyException;
 import model.exceptions.NoMoneyException;
-import org.json.JSONObject;
-import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class User implements Player, Writable {
+public class User implements Player {
     private int money;
     private List<Cards> hand;
 
@@ -59,6 +57,8 @@ public class User implements Player, Writable {
         return this.hand;
     }
 
+    // EFFECTS: return a formatted version of user's hand
+    @Override
     public String getFormatHand() {
         StringBuilder sb = new StringBuilder();
         sb.append("Your card: ");
@@ -85,12 +85,5 @@ public class User implements Player, Writable {
     @Override
     public void resetHand() {
         hand = new ArrayList<>();
-    }
-
-    @Override
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("money", getMoney());
-        return json;
     }
 }

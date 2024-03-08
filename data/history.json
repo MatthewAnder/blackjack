@@ -1,5 +1,10 @@
 {
-    "money": 1000,
-    "histories": [],
-    "time": "03-07"
+    "money": 1600,
+    "histories": [
+        "Your card: 9 [CLUBS] 2 [DIAMONDS] \nDealer's card: 10 [SPADES] Jack [HEARTS] \n- $100\n",
+        "Your card: Jack [DIAMONDS] 10 [CLUBS] \nDealer's card: 7 [HEARTS] 2 [DIAMONDS] 7 [DIAMONDS] \n+ $100\n",
+        "Your card: 8 [DIAMONDS] 2 [HEARTS] Jack [DIAMONDS] \nDealer's card: 5 [HEARTS] Ace [SPADES] 9 [DIAMONDS] Ace [HEARTS] \n+ $500\n",
+        "Your card: 9 [HEARTS] 7 [HEARTS] \nDealer's card: 3 [DIAMONDS] 6 [DIAMONDS] 6 [HEARTS] King [DIAMONDS] \n+ $100\n"
+    ],
+    "time": "03-08"
 }

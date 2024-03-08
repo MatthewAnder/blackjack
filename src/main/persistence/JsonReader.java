@@ -1,7 +1,6 @@
 package persistence;
 
 import model.Session;
-import model.User;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
