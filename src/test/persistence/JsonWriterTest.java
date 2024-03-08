@@ -21,7 +21,7 @@ public class JsonWriterTest {
     }
 
     @Test
-    public void testWriterEmptyHistory() {
+    public void testJsonEmptyHistory() {
         try {
             List<String> histories = new ArrayList<String>();
             Session session = new Session(1000, histories);
@@ -31,6 +31,27 @@ public class JsonWriterTest {
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterEmptyHistory.json");
+            session = reader.read();
+            assertEquals(1000, session.getUserMoney());
+            assertEquals(histories, session.getHistories());
+        } catch (IOException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testJsonWithHistory() {
+        try {
+            List<String> histories = new ArrayList<String>();
+            histories.add("hello");
+            histories.add("Hello world!");
+            Session session = new Session(1000, histories);
+            JsonWriter writer = new JsonWriter("./data/testWriterWithHistory.json");
+            writer.open();
+            writer.write(session);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterWithHistory.json");
             session = reader.read();
             assertEquals(1000, session.getUserMoney());
             assertEquals(histories, session.getHistories());

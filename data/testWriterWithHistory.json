@@ -1,0 +1,8 @@
+{
+    "money": 1000,
+    "histories": [
+        "hello",
+        "Hello world!"
+    ],
+    "time": "03-08"
+}
