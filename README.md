@@ -16,8 +16,9 @@ I am interested in making this game because of the logic behind the game. It is 
 ### User Stories
 - As a user, I want to be able press a button that says stand, hit, and play combo.
 - As a user, I want to be able to gain money from winning and lose money.
+- As a user, I want to save my money and can choose to save my history session.
+- As a user, I want to load my session history any time.
 - As a user, I want to choose a card and take it from the table, making it the user's.
 - As a user, I want to play a combo from the list of cards the user has.
 - As a user, I want to be able to select a difficulty of the **mode**.
 - As a user, I want to buy accessories with my money  (if time permits).
-- As a user, I want to save my money and can choose to save my history session.

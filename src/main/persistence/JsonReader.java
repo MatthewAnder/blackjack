@@ -21,7 +21,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads workroom from file and returns it;
+    // EFFECTS: reads session from file and returns it;
     // throws IOException if an error occurs reading data from file
     public Session read() throws IOException {
         String jsonData = readFile(source);
@@ -40,7 +40,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses user from JSON object and returns it
+    // EFFECTS: parses session from JSON object and returns it
     private Session parseSession(JSONObject jsonObject) {
         Integer money = jsonObject.getInt("money");
         List<String> histories = new ArrayList<String>();

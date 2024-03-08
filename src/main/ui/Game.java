@@ -132,13 +132,6 @@ public class Game {
             quitGame();
         }
 
-//        try {
-//            jsonWriter.write(user);
-//            jsonWriter.close();
-//        } catch (IOException e) {
-//            System.out.println("Cannot read file!");
-//        }
-
         System.out.println("Exiting game...");
         System.exit(0);
     }
@@ -159,7 +152,7 @@ public class Game {
         try {
             history.addHistory(jsonReader.read().getHistories());
         } catch (IOException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            System.out.println("Unable to load file: " + JSON_STORE);
         }
     }
 }
