@@ -10,5 +10,6 @@ public interface Player {
     public int getValueOfHand();
 
     public void resetHand();
+
     public String getFormatHand();
 }
