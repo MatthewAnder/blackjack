@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,5 +36,19 @@ public class SessionTest {
         histories.add("Card1\nCard2\n- $100\n");
 
         assertEquals(histories, session.getHistories());
+    }
+
+    @Test
+    public void testJSONObject() {
+
+    }
+
+    @Test
+    public void testJSONObjectArray() {
+        JSONObject object = new JSONObject();
+
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put("Card1\nCard2\n+ $100\n");
+        jsonArray.put("Card1\nCard2\n- $100\n");
     }
 }
