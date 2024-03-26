@@ -8,6 +8,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.io.FileNotFoundException;
@@ -31,6 +32,10 @@ public class GameGUI extends JFrame {
 
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
+
+    public static void main(String[] args) {
+        new GameGUI();
+    }
 
     public GameGUI() {
         super("Jack n' Co");
@@ -74,7 +79,7 @@ public class GameGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
-        setUIFont(new FontUIResource(new Font(Font.SANS_SERIF, Font.PLAIN, 15)));
+        setUIFont(new FontUIResource(new Font("Tahoma", Font.PLAIN, 13)));
     }
 
     private void  initializeHomeScreen() {
@@ -82,9 +87,19 @@ public class GameGUI extends JFrame {
         JLabel title = new JLabel();
 
         panel.setLayout(new GridBagLayout());
+        panel.setBackground(Color.GREEN);
         GridBagConstraints constraints = new GridBagConstraints();
 
         title.setText("<html><h1>Welcome to Jack n' Co</h1></html>");
+
+        panel.add(generateImage("./cards/king_of_clubs.png"));
+        panel.add(generateImage("./cards/jack_of_clubs.png"));
+        panel.add(generateImage("./cards/queen_of_clubs.png"));
+        panel.add(generateImage("./cards/ace_of_clubs.png"));
+
+        initializeConstraints(constraints);
+        panel.add(title);
+
         JButton startBtn = new JButton("Start Game");
         startBtn.addActionListener(e -> startGame());
         JButton checkHistoryBtn = new JButton("Check History");
@@ -93,9 +108,6 @@ public class GameGUI extends JFrame {
         loadHistoryBtn.addActionListener(e -> loadSession());
         JButton exitBtn = new JButton("Exit Game");
         exitBtn.addActionListener(e -> System.exit(0));
-
-        initializeConstraints(constraints);
-        panel.add(title, constraints);
 
         addBtn(panel, constraints, startBtn, 1);
         addBtn(panel, constraints, loadHistoryBtn, 2);
@@ -107,15 +119,28 @@ public class GameGUI extends JFrame {
 
     private void initializeConstraints(GridBagConstraints c) {
         c.insets = new Insets(10, 0, 0, 0);
-        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
     }
 
+    // MODIFIES:
+    // EFFECTS:
     private void addBtn(JPanel panel, GridBagConstraints constraints, JButton btn, int padY) {
         constraints.gridx = 0;
         constraints.gridy = padY;
         panel.add(btn, constraints);
+    }
+
+    // EFFECTS: generates a consistently formatted image icon for the playing cards
+    private JLabel generateImage(String path) {
+        ImageIcon i = new ImageIcon(ClassLoader.getSystemResource(path));
+        Image image = i.getImage();
+        Image newImg = image.getScaledInstance(90, 120, Image.SCALE_SMOOTH);
+        JLabel imgLabel = new JLabel(new ImageIcon(newImg));
+        imgLabel.setBackground(Color.white);
+        imgLabel.setOpaque(true);
+        imgLabel.setBorder(new BevelBorder(BevelBorder.RAISED));
+        return imgLabel;
     }
 
     // EFFECTS: starts the game
@@ -123,6 +148,7 @@ public class GameGUI extends JFrame {
 
     }
 
+    // EFFECTS:
     public void saveSession() {
         Session session = new Session(user.getMoney(), history.getHistory());
         try {
@@ -134,6 +160,7 @@ public class GameGUI extends JFrame {
         }
     }
 
+    // EFFECTS:
     public void loadSession() {
         System.out.println("Loading History...");
         try {
