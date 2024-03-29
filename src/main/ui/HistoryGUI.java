@@ -51,7 +51,7 @@ public class HistoryGUI extends JPanel {
 
     private void initializeButtons(GridBagConstraints constraints) {
         JButton backBtn = new JButton("Go Back");
-        backBtn.addActionListener(e -> pagesLayout.show(pages, "Card with Home"));
+        backBtn.addActionListener(e -> pagesLayout.show(pages, HomeGUI.HOME_PANEL));
         JButton loadBtn = new JButton("Refresh");
         loadBtn.addActionListener(e -> showHistory(constraints));
 

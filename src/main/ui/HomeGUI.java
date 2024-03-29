@@ -26,13 +26,12 @@ public class HomeGUI extends JFrame {
     private JsonReader jsonReader;
 
     private JPanel pages;
+    private JPanel homePanel;
     private CardLayout pagesLayout;
 
     private User user;
     private Dealer dealer;
     private History history;
-
-    JPanel homePanel;
 
     public HomeGUI() {
         super("Jack n' Co");
@@ -61,12 +60,13 @@ public class HomeGUI extends JFrame {
     private void initializePages() {
         pagesLayout = new CardLayout();
         pages = new JPanel(pagesLayout);
+
         pages.add(homePanel, HOME_PANEL);
-        pages.add(new BetGUI(pages, pagesLayout), BET_PANEL);
+        pages.add(new BetGUI(pages, pagesLayout, user, history), BET_PANEL);
         pages.add(new HistoryGUI(pages, pagesLayout, history), HISTORY_PANEL);
-        pages.add(new TableGUI(), TABLE_PANEL);
 
         add(pages);
+        revalidate();
     }
 
     // MODIFIES: this

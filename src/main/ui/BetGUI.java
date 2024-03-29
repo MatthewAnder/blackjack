@@ -1,16 +1,27 @@
 package ui;
 
+import model.History;
+import model.User;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class BetGUI extends JPanel {
-    JPanel pages;
-    CardLayout pagesLayout;
+    private JPanel pages;
+    private CardLayout pagesLayout;
+    private int moneyOnTable;
+    private History history;
+    private User user;
 
-    public BetGUI(JPanel pages, CardLayout pagesLayout) {
+    private JTextField moneyIn;
+
+    public BetGUI(JPanel pages, CardLayout pagesLayout, User user, History history) {
         super();
         this.pages = pages;
         this.pagesLayout = pagesLayout;
+        moneyOnTable = 0;
+        this.history = history;
+        this.user = user;
 
         initializeGraphics();
         GridBagConstraints constraints = new GridBagConstraints();
@@ -34,13 +45,13 @@ public class BetGUI extends JPanel {
     }
 
     private void initializeContent(GridBagConstraints constraints) {
-        JLabel moneyText = new JLabel("Bet money: $ ");
-        add(moneyText);
+        JLabel textLabel = new JLabel("Bet money: $ ");
+        add(textLabel);
 
-        JTextArea in = new JTextArea(1, 100);
-        in.getText();
+        moneyIn = new JTextField(10);
+
         constraints.fill = GridBagConstraints.BOTH;
-        add(in, constraints);
+        add(moneyIn, constraints);
         initializeButtons(constraints);
     }
 
@@ -48,14 +59,31 @@ public class BetGUI extends JPanel {
         JButton betBtn = new JButton("Bet");
         betBtn.addActionListener(e -> startGame());
         JButton backBtn = new JButton("Go Back");
-        backBtn.addActionListener(e -> pagesLayout.show(pages, "Card with Home"));
+        backBtn.addActionListener(e -> pagesLayout.show(pages, HomeGUI.HOME_PANEL));
 
         addBtn(constraints, betBtn, 1);
         addBtn(constraints, backBtn, 2);
     }
 
     private void startGame() {
-        pagesLayout.show(pages, HomeGUI.TABLE_PANEL);
+        boolean isNumber = true;
+        try {
+            moneyOnTable = Integer.parseInt(moneyIn.getText().trim());
+            user.takeMoney(moneyOnTable);
+            pages.add(new TableGUI(pages, pagesLayout, moneyOnTable, history, user), HomeGUI.TABLE_PANEL);
+        } catch (NumberFormatException e) {
+            System.out.println("Not a number!");
+            isNumber = false;
+        } catch (Exception e) {
+            System.out.println("Something is not working");
+            isNumber = false;
+        }
+
+        if (isNumber && moneyOnTable > 0 && moneyOnTable <= user.getMoney()) {
+            pagesLayout.show(pages, HomeGUI.TABLE_PANEL);
+        } else {
+            JOptionPane.showMessageDialog(null, "Something is not right!");
+        }
     }
 
     // MODIFIES:

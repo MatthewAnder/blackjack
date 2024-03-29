@@ -2,6 +2,9 @@ package ui;
 
 import model.Cards;
 import model.Decks;
+import model.Game;
+import model.History;
+import model.User;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -10,8 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TableGUI extends JPanel {
-
+    private JPanel pages;
+    private CardLayout pagesLayout;
     private int moneyOnTable;
+    private History history;
+    private User user;
+
     private Decks decks;
     private List<Cards> userHand;
     private List<Cards> dealerHand;
@@ -20,14 +27,22 @@ public class TableGUI extends JPanel {
     private JPanel middlePanel;
     private JPanel bottomPanel;
 
-    public TableGUI() {
-        moneyOnTable = 0;
+    public TableGUI(JPanel pages, CardLayout pagesLayout, int moneyOnTable, History history, User user) {
+        this.pages = pages;
+        this.pagesLayout = pagesLayout;
+        this.moneyOnTable = moneyOnTable;
+        this.history = history;
+        this.user = user;
+
+        initializeFields();
+        distributeCards();
+        initializeGraphics();
+    }
+
+    private void initializeFields() {
         decks = new Decks();
         userHand = new ArrayList<>();
         dealerHand = new ArrayList<>();
-
-        distributeCards();
-        initializeGraphics();
     }
 
     private void initializeGraphics() {
@@ -49,10 +64,6 @@ public class TableGUI extends JPanel {
         return panel;
     }
 
-    public void setBet(int moneyOnTable) {
-        this.moneyOnTable = moneyOnTable;
-    }
-
     private void initializeTopPanel() {
         topPanel = createPanelWithText("Dealer's Hand:", 100, 10);
 
@@ -70,6 +81,27 @@ public class TableGUI extends JPanel {
         cardImagesPanel.add(backCardLabel);
         topPanel.add(cardImagesPanel, BorderLayout.CENTER);
 
+        add(topPanel, BorderLayout.NORTH);
+    }
+
+    private void revealDealerHand() {
+        topPanel.removeAll();
+        topPanel = createPanelWithText("Dealer's Hand:", 100, 10);
+
+        // Create a panel for the dealer's hand text
+        JPanel dealerHandTextPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel dealerHandTextLabel = new JLabel("Dealer's Hand:");
+        dealerHandTextPanel.add(dealerHandTextLabel);
+        topPanel.add(dealerHandTextPanel, BorderLayout.NORTH);
+
+        // Create a panel for the card images
+        JPanel cardImagesPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        for (int i = 0; i < dealerHand.size(); i++) {
+            cardImagesPanel.add(generateImage(getImagePath(dealerHand.get(i))));
+        }
+
+        revalidate();
+        topPanel.add(cardImagesPanel, BorderLayout.CENTER);
         add(topPanel, BorderLayout.NORTH);
     }
 
@@ -94,18 +126,23 @@ public class TableGUI extends JPanel {
         }
         bottomPanel.add(cardImagesPanel, BorderLayout.CENTER);
 
-        // Create a panel for the buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton hitBtn = new JButton("HIT");
-        hitBtn.addActionListener(e -> playHit());
-        JButton standBtn = new JButton("STAND");
-        JButton doubleBtn = new JButton("DOUBLE");
-        buttonPanel.add(hitBtn);
-        buttonPanel.add(standBtn);
-        buttonPanel.add(doubleBtn);
+        initializeButtons(buttonPanel);
         bottomPanel.add(buttonPanel, BorderLayout.SOUTH);
         revalidate();
         add(bottomPanel, BorderLayout.SOUTH);
+    }
+
+    private void initializeButtons(JPanel panel) {
+        JButton hitBtn = new JButton("HIT");
+        hitBtn.addActionListener(e -> playHit());
+        JButton standBtn = new JButton("STAND");
+        standBtn.addActionListener(e -> playStand());
+        JButton doubleBtn = new JButton("DOUBLE");
+        doubleBtn.addActionListener(e -> playDouble());
+        panel.add(hitBtn);
+        panel.add(standBtn);
+        panel.add(doubleBtn);
     }
 
     public void distributeCards() {
@@ -123,6 +160,34 @@ public class TableGUI extends JPanel {
     public void playHit() {
         userHand.add(decks.getRandomCard());
         initializeBottomPanel();
+
+        if (getValueOfHand(userHand) > 21) {
+            finishGame("user bust", false);
+        } else if (getValueOfHand(userHand) == 21) {
+            moneyOnTable *= 2;
+            finishGame("jackpot", true);
+        }
+    }
+
+    public void playStand() {
+        while (getValueOfHand(dealerHand) <= 15) {
+            dealerHand.add(decks.getRandomCard());
+        }
+        revealDealerHand();
+        checkHand();
+    }
+
+    public void playDouble() {
+        moneyOnTable *= 2;
+        try {
+            user.takeMoney(moneyOnTable);
+        } catch (Exception e) {
+            System.out.println("Game is taking invalid number!");
+        }
+        userHand.add(decks.getRandomCard());
+        initializeMiddlePanel();
+        initializeBottomPanel();
+        playStand();
     }
 
     public String getImagePath(Cards card) {
@@ -143,5 +208,62 @@ public class TableGUI extends JPanel {
         imgLabel.setOpaque(true);
         imgLabel.setBorder(new BevelBorder(BevelBorder.RAISED));
         return imgLabel;
+    }
+
+    // EFFECTS: compare the value of the dealer's hand and the user's hand and determine the winner
+    public void checkHand() {
+        if (getValueOfHand(dealerHand) >= 22) {
+            System.out.println("Dealer busted!");
+            finishGame("dealer bust", true);
+        } else if (getValueOfHand(userHand) > getValueOfHand(dealerHand)) {
+            System.out.println("You win!");
+            finishGame("win", true);
+        } else if (getValueOfHand(userHand) <= getValueOfHand(dealerHand)) {
+            System.out.println("You lose!");
+            finishGame("lose", false);
+        }
+    }
+
+    public void finishGame(String win, boolean isWin) {
+        if (isWin) {
+            moneyOnTable *= 2;
+            user.giveMoney(moneyOnTable * 2);
+        }
+        checkStatus(win.toLowerCase());
+        history.putHistory(new Game(userHand, dealerHand, moneyOnTable, isWin));
+        pagesLayout.show(pages, HomeGUI.HOME_PANEL);
+        pages.remove(this);
+    }
+
+    public void checkStatus(String status) {
+        switch (status) {
+            case "jackpot":
+                showMsgBox("JACKPOT!!!");
+                break;
+            case "dealer bust":
+                showMsgBox("Dealer Busted!!! You get $" + moneyOnTable);
+                break;
+            case "user bust":
+                showMsgBox("You Busted!!! You lose $" + moneyOnTable);
+                break;
+            case "win":
+                showMsgBox("You win! + $" + moneyOnTable);
+                break;
+            case "lose":
+                showMsgBox("You lose! - $" + moneyOnTable);
+                break;
+        }
+    }
+
+    public void showMsgBox(String content) {
+        JOptionPane.showMessageDialog(null, content);
+    }
+
+    public int getValueOfHand(List<Cards> hand) {
+        int total = 0;
+        for (Cards c : hand) {
+            total += c.getValue();
+        }
+        return total;
     }
 }
