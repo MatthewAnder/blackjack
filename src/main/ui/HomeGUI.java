@@ -175,6 +175,7 @@ public class HomeGUI extends JFrame {
         System.out.println("Loading History...");
         try {
             history.addHistory(jsonReader.read().getHistory());
+            JOptionPane.showMessageDialog(null, "History is loaded!");
         } catch (IOException e) {
             System.out.println("Unable to load file: " + JSON_STORE);
         }

@@ -1,27 +1,57 @@
 {
-    "money": 1220,
-    "histories": [{
-        "money on table": 100,
-        "user hand": [
-            {
-                "rank": "JACK",
-                "suit": "SPADE"
-            },
-            {
-                "rank": "SEVEN",
-                "suit": "DIAMOND"
-            }
-        ],
-        "dealer hand": [
-            {
-                "rank": "SIX",
-                "suit": "CLUB"
-            },
-            {
-                "rank": "QUEEN",
-                "suit": "CLUB"
-            }
-        ],
-        "win": true
-    }]
+    "money": 1070,
+    "histories": [
+        {
+            "money on table": 100,
+            "user hand": [
+                {
+                    "rank": "JACK",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "SEVEN",
+                    "suit": "DIAMOND"
+                }
+            ],
+            "dealer hand": [
+                {
+                    "rank": "SIX",
+                    "suit": "CLUB"
+                },
+                {
+                    "rank": "QUEEN",
+                    "suit": "CLUB"
+                }
+            ],
+            "win": true
+        },
+        {
+            "money on table": 150,
+            "user hand": [
+                {
+                    "rank": "TEN",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "THREE",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "KING",
+                    "suit": "CLUB"
+                }
+            ],
+            "dealer hand": [
+                {
+                    "rank": "SIX",
+                    "suit": "CLUB"
+                },
+                {
+                    "rank": "TWO",
+                    "suit": "SPADE"
+                }
+            ],
+            "win": false
+        }
+    ]
 }
