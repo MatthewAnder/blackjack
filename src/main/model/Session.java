@@ -12,13 +12,13 @@ import java.util.List;
 
 // Session object for combining all the data into one object for ease of use
 public class Session implements Writable {
-    List<String> histories;
+    History history;
     int userMoney;
 
     // Usually constructs a session when user is quitting the game
-    public Session(Integer userMoney, List<String> histories) {
+    public Session(Integer userMoney, History history) {
         this.userMoney = userMoney;
-        this.histories = histories;
+        this.history = history;
     }
 
     // EFFECTS: returns the user money
@@ -26,29 +26,35 @@ public class Session implements Writable {
         return userMoney;
     }
 
+    public void setUserMoney(int userMoney) {
+        this.userMoney = userMoney;
+    }
+
     // EFFECTS: returns the list of histories
-    public List<String> getHistories() {
-        return histories;
+    public List<Game> getHistory() {
+        return history.getHistory();
+    }
+
+    public void addHistory(History history) {
+        this.history = history;
     }
 
     // EFFECTS: returns a JSON object from money and list of string so it can be written into a JSON file
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        DateFormat dateFormat = new SimpleDateFormat("MM-dd");
 
-        json.put("time", dateFormat.format(new Date()));
         json.put("money", userMoney);
-        json.put("histories", historiesToJson());
+        json.put("histories", historyToJson());
         return json;
     }
 
-    // EFFECTS: returns histories in this history as a JSON array
-    private JSONArray historiesToJson() {
+
+    private JSONArray historyToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (String h : histories) {
-            jsonArray.put(h);
+        for (Game g : history.getHistory()) {
+            jsonArray.put(g.toJson());
         }
 
         return jsonArray;

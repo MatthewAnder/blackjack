@@ -2,6 +2,8 @@ package model;
 
 import model.exceptions.NegativeMoneyException;
 import model.exceptions.NoMoneyException;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,18 +57,6 @@ public class User implements Player {
     @Override
     public List<Cards> getHand() {
         return this.hand;
-    }
-
-    // EFFECTS: return a formatted version of user's hand
-    @Override
-    public String getFormatHand() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Your card: ");
-        for (Cards eachCard : getHand()) {
-            sb.append(eachCard.getFormatCard() + " ");
-        }
-
-        return sb.toString();
     }
 
     // EFFECTS: returns the total value of the cards that is in the user's hand

@@ -1,12 +1,17 @@
 package ui;
 
-import model.Decks;
-import model.Cards;
+import javax.swing.*;
 
 public class Main {
 
     public static void main(String[] args) {
-//        new Game();
-        new HomeGUI();
+//        new Terminal();
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new HomeGUI();
+            }
+        });
     }
 }

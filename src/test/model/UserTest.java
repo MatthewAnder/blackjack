@@ -100,19 +100,6 @@ public class UserTest {
     }
 
     @Test
-    public void testGetFormatHand() {
-        Cards card1 = new Cards(Suits.CLUB, Ranks.FOUR);
-        Cards card2 = new Cards(Suits.SPADE, Ranks.KING);
-        assertEquals("Your card: ", user.getFormatHand());
-        user.addHand(card1);
-        assertEquals("Your card: 4 [CLUBS] ", user.getFormatHand());
-
-        user.addHand(card2);
-
-        assertEquals("Your card: 4 [CLUBS] King [SPADES] ", user.getFormatHand());
-    }
-
-    @Test
     public void testGetHand() {
         Cards card1 = new Cards(Suits.HEART, Ranks.THREE);
         user.addHand(card1);

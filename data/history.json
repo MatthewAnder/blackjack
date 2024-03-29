@@ -1,11 +1,105 @@
 {
-    "money": 1000,
+    "money": 1120,
     "histories": [
-        "Your card: 9 [CLUBS] 2 [DIAMONDS] \nDealer's card: 10 [SPADES] Jack [HEARTS] \n- $100\n",
-        "Your card: Jack [DIAMONDS] 10 [CLUBS] \nDealer's card: 7 [HEARTS] 2 [DIAMONDS] 7 [DIAMONDS] \n+ $100\n",
-        "Your card: 8 [DIAMONDS] 2 [HEARTS] Jack [DIAMONDS] \nDealer's card: 5 [HEARTS] Ace [SPADES] 9 [DIAMONDS] Ace [HEARTS] \n+ $500\n",
-        "Your card: 9 [HEARTS] 7 [HEARTS] \nDealer's card: 3 [DIAMONDS] 6 [DIAMONDS] 6 [HEARTS] King [DIAMONDS] \n+ $100\n",
-        "Your card: King [DIAMONDS] King [HEARTS] \nDealer's card: 5 [HEARTS] 6 [HEARTS] 9 [CLUBS] \n- $1000\n"
-    ],
-    "time": "03-26"
+        {
+            "money on table": 10,
+            "user hand": [
+                {
+                    "rank": "JACK",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "QUEEN",
+                    "suit": "DIAMOND"
+                }
+            ],
+            "dealer hand": [
+                {
+                    "rank": "FOUR",
+                    "suit": "CLUB"
+                },
+                {
+                    "rank": "SEVEN",
+                    "suit": "HEART"
+                },
+                {
+                    "rank": "THREE",
+                    "suit": "CLUB"
+                },
+                {
+                    "rank": "KING",
+                    "suit": "CLUB"
+                }
+            ],
+            "status": "lose"
+        },
+        {
+            "money on table": 10,
+            "user hand": [
+                {
+                    "rank": "SEVEN",
+                    "suit": "HEART"
+                },
+                {
+                    "rank": "TWO",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "TEN",
+                    "suit": "CLUB"
+                },
+                {
+                    "rank": "TWO",
+                    "suit": "HEART"
+                }
+            ],
+            "dealer hand": [
+                {
+                    "rank": "SIX",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "QUEEN",
+                    "suit": "HEART"
+                }
+            ],
+            "status": "lose"
+        },
+        {
+            "money on table": 100,
+            "user hand": [
+                {
+                    "rank": "QUEEN",
+                    "suit": "HEART"
+                },
+                {
+                    "rank": "JACK",
+                    "suit": "DIAMOND"
+                }
+            ],
+            "dealer hand": [
+                {
+                    "rank": "ACE",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "NINE",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "TWO",
+                    "suit": "CLUB"
+                },
+                {
+                    "rank": "THREE",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "ACE",
+                    "suit": "CLUB"
+                }
+            ],
+            "status": "lose"
+        }
+    ]
 }

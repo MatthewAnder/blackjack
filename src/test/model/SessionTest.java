@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +34,7 @@ public class SessionTest {
         histories.add("Card1\nCard2\n+ $100\n");
         histories.add("Card1\nCard2\n- $100\n");
 
-        assertEquals(histories, session.getHistories());
+        assertEquals(histories, session.getHistory());
     }
 
     @Test

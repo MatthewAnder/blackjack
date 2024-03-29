@@ -33,7 +33,7 @@ public class JsonTest {
             JsonReader reader = new JsonReader("./data/testWriterEmptyHistory.json");
             session = reader.read();
             assertEquals(1000, session.getUserMoney());
-            assertEquals(histories, session.getHistories());
+            assertEquals(histories, session.getHistory());
         } catch (IOException e) {
             fail();
         }
@@ -54,7 +54,7 @@ public class JsonTest {
             JsonReader reader = new JsonReader("./data/testWriterWithHistory.json");
             session = reader.read();
             assertEquals(1000, session.getUserMoney());
-            assertEquals(histories, session.getHistories());
+            assertEquals(histories, session.getHistory());
         } catch (IOException e) {
             fail();
         }

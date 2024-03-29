@@ -1,6 +1,11 @@
 package model;
 
-public class Cards {
+import org.json.JSONObject;
+import persistence.Writable;
+
+import java.security.PublicKey;
+
+public class Cards implements Writable {
     private Suits suits;
     private Ranks ranks;
 
@@ -27,6 +32,16 @@ public class Cards {
     // EFFECTS: return a formatted string for the card to maintain consistency when printing the card
     public String getFormatCard() {
         return this.ranks + " [" + this.suits.toString().toUpperCase() + "]";
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+
+        json.put("rank", ranks);
+        json.put("suit", suits);
+
+        return json;
     }
 }
 

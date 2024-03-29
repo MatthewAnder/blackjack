@@ -1,14 +1,18 @@
 package ui;
 
+import model.Cards;
 import model.History;
+import model.Game;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 
 public class HistoryGUI extends JPanel {
-    JPanel pages;
-    CardLayout pagesLayout;
-    History history;
+    private JPanel pages;
+    private CardLayout pagesLayout;
+    private History history;
+    private StringBuilder historyText;
 
     public HistoryGUI(JPanel pages, CardLayout pagesLayout, History history) {
         super();
@@ -18,19 +22,20 @@ public class HistoryGUI extends JPanel {
 
         initializeGraphics();
 
-        JLabel title = new JLabel();
-
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
+        initializeHeader(constraints);
+        initializeButtons(constraints);
+    }
 
+    private void initializeHeader(GridBagConstraints c) {
+        JLabel title = new JLabel();
         title.setText("<html><h1>HISTORY</h1></html>");
 
-        constraints.insets = new Insets(10, 0, 0, 0);
-        constraints.gridx = 1000;
-        constraints.gridy = 0;
+        c.insets = new Insets(10, 0, 0, 0);
+        c.gridx = 1000;
+        c.gridy = 0;
         add(title);
-
-        initializeButtons(constraints);
     }
 
     // MODIFIES: this
@@ -44,8 +49,8 @@ public class HistoryGUI extends JPanel {
     private void initializeButtons(GridBagConstraints constraints) {
         JButton backBtn = new JButton("Go Back");
         backBtn.addActionListener(e -> pagesLayout.show(pages, "Card with Home"));
-        JButton loadBtn = new JButton("Load");
-        loadBtn.addActionListener(e -> showHistory(constraints));
+        JButton loadBtn = new JButton("Refresh");
+        loadBtn.addActionListener(e -> showHistory(constraints, loadBtn));
 
         addBtn(constraints, loadBtn, 1);
         addBtn(constraints, backBtn, 2);
@@ -59,22 +64,71 @@ public class HistoryGUI extends JPanel {
         add(btn, constraints);
     }
 
-    public void showHistory(GridBagConstraints constraints) {
-        pagesLayout.show(pages, HomeGUI.HISTORY_PANEL);
+    public void showHistory(GridBagConstraints constraints, JButton btn) {
         if (history.getHistory() != null) {
             JLabel historyTitle = new JLabel("History: ");
-            add(historyTitle);
+            add(historyTitle, constraints);
+            historyText = new StringBuilder();
+            historyText.append("<html>");
+            generateContent();
+            historyText.append("</html>");
 
-
-            for (int i = 0; i < history.getHistory().size(); i++) {
-                JLabel historyText = new JLabel();
-                constraints.gridy = 3 + i;
-                historyText.setText("<html>" + history.getHistory().get(i) + "<br/></html>");
-                add(historyText, constraints);
-            }
-
+            constraints.gridy = 4;
+            JLabel content = new JLabel(historyText.toString());
+            JScrollPane scroller = new JScrollPane(content,
+                    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            scroller.setPreferredSize(new Dimension(600,400));
+            scroller.getViewport().setBackground(Color.WHITE);
+            add(scroller, constraints);
         } else {
             System.out.println("No History!");
+        }
+        revalidate();
+    }
+
+    private void generateContent() {
+        for (int i = 0; i < history.getHistory().size(); i++) {
+            Game game = history.getHistory().get(i);
+            historyText.append("Bet = " + game.getMoneyOnTable() + "<br />");
+            historyText.append("Status = " + ((game.getStatusOfGame()) ? "win" : "lose") + "<br />");
+            generateUserCards(game);
+            historyText.append("<br />");
+            generateDealerCards(game);
+            historyText.append("<br />");
+        }
+    }
+
+    private void generateUserCards(Game game) {
+        historyText.append("User hand = <br />");
+
+        for (int j = 0; j < game.getUserHands().size(); j++) {
+            Cards userHand = game.getUserHands().get(j);
+            String imagePath = "cards/"
+                    + userHand.getRank().toLowerCase()
+                    + "_of_"
+                    + userHand.getSuits().toLowerCase()
+                    + ".png";
+            String fileName = getClass().getClassLoader().getResource(imagePath).toString();
+            historyText.append("<img src ='" + fileName + "' width='100' height='150' />");
+        }
+    }
+
+    private void generateDealerCards(Game game) {
+
+        historyText.append("Dealer hand = <br />");
+
+        for (int j = 0; j < game.getDealerHands().size(); j++) {
+            Cards dealerHand = game.getDealerHands().get(j);
+            String imagePath = "cards/"
+                    + dealerHand.getRank().toLowerCase()
+                    + "_of_"
+                    + dealerHand.getSuits().toLowerCase()
+                    + ".png";
+            String fileName = getClass().getClassLoader().getResource(imagePath).toString();
+            historyText.append("<img src ='"
+                    + fileName
+                    + "' width='100' height='150' />");
         }
     }
 }

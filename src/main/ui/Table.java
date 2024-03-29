@@ -161,6 +161,6 @@ public class Table {
             System.out.println("You lose $" + betOnTable);
         }
 
-        history.putHistory(user.getFormatHand(), dealer.getFormatHand(), betOnTable, win);
+        history.putHistory(new Game(user.getHand(), dealer.getHand(), betOnTable, win));
     }
 }

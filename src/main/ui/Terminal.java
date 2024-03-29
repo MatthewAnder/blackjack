@@ -1,17 +1,15 @@
 package ui;
 
-import model.Dealer;
-import model.Session;
-import model.User;
-import model.History;
+import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
-public class Game {
+public class Terminal {
     private static final String JSON_STORE = "./data/history.json";
 
     private boolean isPlaying;
@@ -26,7 +24,7 @@ public class Game {
     private History history;
 
     // starts the game with opening the start menu
-    public Game() {
+    public Terminal() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
@@ -109,8 +107,8 @@ public class Game {
     public void showHistory() {
         if (history.getHistory() != null) {
             System.out.println("History: \n");
-            for (String h : history.getHistory()) {
-                System.out.println(h);
+            for (Game g : history.getHistory()) {
+                System.out.println(g);
             }
         } else if (history.getHistory() == null) {
             System.out.println("No History!");
@@ -137,7 +135,8 @@ public class Game {
     }
 
     public void saveSession() {
-        Session session = new Session(user.getMoney(), history.getHistory());
+        Session session = new Session(user.getMoney(), history);
+
         try {
             jsonWriter.open();
             jsonWriter.write(session);
@@ -150,7 +149,7 @@ public class Game {
     public void loadSession() {
         System.out.println("Loading History...");
         try {
-            history.addHistory(jsonReader.read().getHistories());
+            history.addHistory(jsonReader.read().getHistory());
         } catch (IOException e) {
             System.out.println("Unable to load file: " + JSON_STORE);
         }

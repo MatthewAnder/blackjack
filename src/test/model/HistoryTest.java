@@ -11,30 +11,48 @@ import static org.junit.jupiter.api.Assertions.*;
 public class HistoryTest {
 
     History history;
+    List<Cards> cards1;
+    List<Cards> cards2;
+    Cards card1;
+    Cards card2;
+    Cards card3;
+    Cards card4;
 
     @BeforeEach
     public void setUp() {
         history = new History();
+
+        cards1 = new ArrayList<>();
+        cards2 = new ArrayList<>();
+
+        cards1.add(card1);
+        cards1.add(card2);
+        cards2.add(card3);
+        cards2.add(card4);
     }
 
     @Test
     public void testPutAndGetHistory() {
         assertNull(history.getHistory());
-        history.putHistory("Card1", "Card2", 100, true);
-        assertEquals("Card1\nCard2\n+ $100\n", history.getHistory().get(0));
 
-        history.putHistory("Card1", "Card2", 100, false);
-        assertEquals("Card1\nCard2\n- $100\n", history.getHistory().get(1));
+        history.putHistory(new Game(cards1, cards2, 10, true));
+        assertEquals(cards1, history.getHistory().get(0).getUserHands());
+
+        history.putHistory(new Game(cards2, cards1, 100, false));
+        assertEquals(cards2, history.getHistory().get(0).getUserHands());
     }
 
     @Test
     public void testAddHistory() {
-        List<String> histories = new ArrayList<>();
-        histories.add("Card1\nCard2\n- $100\n");
-        histories.add("Card1\nCard2\n+ $100\n");
+        assertTrue(history.getHistory().isEmpty());
+        List<Game> histories = new ArrayList<>();
+        Game game1 = new Game(cards1, cards2, 10, true);
+        Game game2 = new Game(cards2, cards1, 100, false);
+        histories.add(game1);
+        histories.add(game2);
 
         history.addHistory(histories);
-        assertEquals("Card1\nCard2\n- $100\n", history.getHistory().get(0));
-        assertEquals("Card1\nCard2\n+ $100\n", history.getHistory().get(1));
+        assertEquals(game1, history.getHistory().get(0));
+        assertEquals(game2, history.getHistory().get(1));
     }
 }

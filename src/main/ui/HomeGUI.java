@@ -158,7 +158,7 @@ public class HomeGUI extends JFrame {
 
     // EFFECTS:
     public void saveSession() {
-        Session session = new Session(user.getMoney(), history.getHistory());
+        Session session = new Session(user.getMoney(), history);
         try {
             jsonWriter.open();
             jsonWriter.write(session);
@@ -172,7 +172,7 @@ public class HomeGUI extends JFrame {
     public void loadSession() {
         System.out.println("Loading History...");
         try {
-            history.addHistory(jsonReader.read().getHistories());
+            history.addHistory(jsonReader.read().getHistory());
         } catch (IOException e) {
             System.out.println("Unable to load file: " + JSON_STORE);
         }
