@@ -33,7 +33,7 @@ public class HistoryTest {
 
     @Test
     public void testPutAndGetHistory() {
-        assertNull(history.getHistory());
+        assertEquals(new ArrayList<Game>(), history.getHistory());
 
         history.putHistory(new Game(cards1, cards2, 10, true));
         assertEquals(cards1, history.getHistory().get(0).getUserHands());

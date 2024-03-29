@@ -25,10 +25,6 @@ public class History {
 
     // EFFECTS: returns null if history is empty; else returns the list of string
     public List<Game> getHistory() {
-        if (history.isEmpty()) {
-            return null;
-        }
-
         return history;
     }
 }

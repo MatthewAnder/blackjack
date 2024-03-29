@@ -1,8 +1,27 @@
 {
     "money": 1000,
-    "histories": [
-        "hello",
-        "Hello world!"
-    ],
-    "time": "03-08"
+    "histories": [{
+        "money on table": 10,
+        "user hand": [
+            {
+                "rank": "KING",
+                "suit": "SPADE"
+            },
+            {
+                "rank": "KING",
+                "suit": "SPADE"
+            }
+        ],
+        "dealer hand": [
+            {
+                "rank": "TEN",
+                "suit": "HEART"
+            },
+            {
+                "rank": "TWO",
+                "suit": "CLUB"
+            }
+        ],
+        "status": "win"
+    }]
 }

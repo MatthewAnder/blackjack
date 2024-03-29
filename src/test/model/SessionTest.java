@@ -13,14 +13,27 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SessionTest {
     Session session;
     History history;
+    Game game;
 
     @BeforeEach
     public void setUp() {
         history = new History();
-        history.putHistory("Card1", "Card2", 100, true);
-        history.putHistory("Card1", "Card2", 100, false);
+        List<Cards> cards1 = new ArrayList<>();
+        List<Cards> cards2 = new ArrayList<>();
 
-        session = new Session(100, history.getHistory());
+        Cards card1 = new Cards(Suits.SPADE, Ranks.KING);
+        Cards card2 = new Cards(Suits.HEART, Ranks.TEN);
+        Cards card3 = new Cards(Suits.CLUB, Ranks.TWO);
+        cards1.add(card1);
+        cards1.add(card1);
+
+        cards2.add(card2);
+        cards2.add(card3);
+        game = new Game(cards1, cards2, 10, true);
+
+        history.putHistory(game);
+
+        session = new Session(100, history);
     }
 
     @Test
@@ -30,11 +43,7 @@ public class SessionTest {
 
     @Test
     public void testGetHistory() {
-        List<String> histories = new ArrayList<>();
-        histories.add("Card1\nCard2\n+ $100\n");
-        histories.add("Card1\nCard2\n- $100\n");
-
-        assertEquals(histories, session.getHistory());
+        assertEquals(game, session.getHistory().get(0));
     }
 
     @Test
