@@ -54,7 +54,7 @@ public class JsonTest {
 
             cards2.add(card2);
             cards2.add(card3);
-            Game game = new Game(cards1, cards2, 10, true);
+            Game game = new Game(cards1, cards2, 100, true);
 
             history.putHistory(game);
             Session session = new Session(1000, history);
@@ -66,7 +66,8 @@ public class JsonTest {
             JsonReader reader = new JsonReader("./data/testWriterWithHistory.json");
             session = reader.read();
             assertEquals(1000, session.getUserMoney());
-//            assertEquals(game, session.getHistory());
+            assertEquals(game.getMoneyOnTable(), session.getHistory().get(0).getMoneyOnTable());
+            assertEquals(game.getStatusOfGame(), session.getHistory().get(0).getStatusOfGame());
         } catch (IOException e) {
             fail();
         }

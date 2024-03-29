@@ -1,7 +1,7 @@
 {
     "money": 1000,
     "histories": [{
-        "money on table": 10,
+        "money on table": 100,
         "user hand": [
             {
                 "rank": "KING",
@@ -22,6 +22,6 @@
                 "suit": "CLUB"
             }
         ],
-        "status": "win"
+        "win": true
     }]
 }

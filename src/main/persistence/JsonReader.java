@@ -61,7 +61,7 @@ public class JsonReader {
 
     private void addGame(History history, JSONObject jsonObject) {
         int moneyOnTable = jsonObject.getInt("money on table");
-        String status = jsonObject.getString("status");
+        Boolean status = jsonObject.getBoolean("win");
         List<Cards> userHand = new ArrayList<>();
         for (Object json : jsonObject.getJSONArray("user hand")) {
             userHand.add(getCard((JSONObject) json));
@@ -72,7 +72,7 @@ public class JsonReader {
             dealerHand.add(getCard((JSONObject) json));
         }
 
-        history.putHistory(new Game(userHand, dealerHand, moneyOnTable, (status == "win")));
+        history.putHistory(new Game(userHand, dealerHand, moneyOnTable, status));
     }
 
     private Cards getCard(JSONObject jsonObject) {

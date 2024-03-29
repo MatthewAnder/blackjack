@@ -39,7 +39,7 @@ public class Game implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
 
-        json.put("status", (status) ? "win" : "lose");
+        json.put("win", status);
         json.put("money on table", moneyOnTable);
         json.put("user hand", userHandToJson());
         json.put("dealer hand", dealerHandToJson());

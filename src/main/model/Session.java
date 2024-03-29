@@ -26,17 +26,9 @@ public class Session implements Writable {
         return userMoney;
     }
 
-    public void setUserMoney(int userMoney) {
-        this.userMoney = userMoney;
-    }
-
     // EFFECTS: returns the list of histories
     public List<Game> getHistory() {
         return history.getHistory();
-    }
-
-    public void addHistory(History history) {
-        this.history = history;
     }
 
     // EFFECTS: returns a JSON object from money and list of string so it can be written into a JSON file
