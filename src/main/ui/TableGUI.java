@@ -39,12 +39,14 @@ public class TableGUI extends JPanel {
         initializeGraphics();
     }
 
+    // EFFECTS: initializing fields
     private void initializeFields() {
         decks = new Decks();
         userHand = new ArrayList<>();
         dealerHand = new ArrayList<>();
     }
 
+    // EFFECTS: initializing the layouts
     private void initializeGraphics() {
         setVisible(true);
         setLayout(new BorderLayout());
@@ -54,7 +56,7 @@ public class TableGUI extends JPanel {
         initializeBottomPanel();
     }
 
-    // Utility method to create a JPanel with text and margin
+    // EFFECTS: a helper method to create a JPanel with text and margin
     private JPanel createPanelWithText(String text, int top, int bottom) {
         JPanel panel = new JPanel(new BorderLayout());
         JLabel label = new JLabel(text);
@@ -64,6 +66,7 @@ public class TableGUI extends JPanel {
         return panel;
     }
 
+    // EFFECTS: initializing the top panel
     private void initializeTopPanel() {
         topPanel = createPanelWithText("Dealer's Hand:", 100, 10);
 
@@ -84,6 +87,7 @@ public class TableGUI extends JPanel {
         add(topPanel, BorderLayout.NORTH);
     }
 
+    // EFFECTS: reveals the dealer hand by recalling the top panel and showing all cards
     private void revealDealerHand() {
         topPanel.removeAll();
         topPanel = createPanelWithText("Dealer's Hand:", 100, 10);
@@ -105,11 +109,13 @@ public class TableGUI extends JPanel {
         add(topPanel, BorderLayout.NORTH);
     }
 
+    // EFFECTS: initializing the middle panel
     private void initializeMiddlePanel() {
         middlePanel = createPanelWithText("Total Bet: $" + moneyOnTable, 20, 20);
         add(middlePanel, BorderLayout.CENTER);
     }
 
+    // EFFECTS: initializing the bottom panel
     private void initializeBottomPanel() {
         bottomPanel = createPanelWithText("User's Hand:", 10, 100);
 
@@ -133,6 +139,8 @@ public class TableGUI extends JPanel {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize the play buttons
     private void initializeButtons(JPanel panel) {
         JButton hitBtn = new JButton("HIT");
         hitBtn.addActionListener(e -> playHit());
@@ -145,6 +153,8 @@ public class TableGUI extends JPanel {
         panel.add(doubleBtn);
     }
 
+    // MODIFIES: this
+    // EFFECTS: distribute cards to the player and the dealer
     public void distributeCards() {
         Cards userCard1 = decks.getRandomCard();
         Cards userCard2 = decks.getRandomCard();
@@ -157,6 +167,8 @@ public class TableGUI extends JPanel {
         dealerHand.add(dealerCard2);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a card to the user hand and frequently check whether player will bust or get a jackpot
     public void playHit() {
         userHand.add(decks.getRandomCard());
         initializeBottomPanel();
@@ -169,6 +181,8 @@ public class TableGUI extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: dealer will draw a card until the dealer bust or get a jackpot
     public void playStand() {
         while (getValueOfHand(dealerHand) <= 15) {
             dealerHand.add(decks.getRandomCard());
@@ -177,6 +191,9 @@ public class TableGUI extends JPanel {
         checkHand();
     }
 
+    // MODIFIES: this
+    // EFFECTS: double the bet on the table and adds a card to the user hand, it will immediately check if the player
+    //          wins or not
     public void playDouble() {
         moneyOnTable *= 2;
         try {
@@ -190,6 +207,7 @@ public class TableGUI extends JPanel {
         playStand();
     }
 
+    // EFFECTS: return an image path to the given card
     public String getImagePath(Cards card) {
         return "cards/"
                 + card.getRank().toLowerCase()
@@ -224,6 +242,9 @@ public class TableGUI extends JPanel {
         }
     }
 
+    // REQUIRES: win != ""
+    // MODIFIES: this
+    // EFFECTS: finish the game by giving or taking the user's money and putting it in the history
     public void finishGame(String win, boolean isWin) {
         if (isWin) {
             moneyOnTable *= 2;
@@ -235,6 +256,7 @@ public class TableGUI extends JPanel {
         pages.remove(this);
     }
 
+    // EFFECTS: check the status of the game and show a popup message box to alert the player
     public void checkStatus(String status) {
         switch (status) {
             case "jackpot":
@@ -255,10 +277,12 @@ public class TableGUI extends JPanel {
         }
     }
 
+    // EFFECTS: a helper to easily show the message box
     public void showMsgBox(String content) {
         JOptionPane.showMessageDialog(null, content);
     }
 
+    // EFFECTS: a helper to get the total value on a player's hand
     public int getValueOfHand(List<Cards> hand) {
         int total = 0;
         for (Cards c : hand) {

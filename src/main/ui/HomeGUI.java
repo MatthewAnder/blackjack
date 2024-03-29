@@ -44,6 +44,7 @@ public class HomeGUI extends JFrame {
         initializePages();
     }
 
+    // EFFECTS: reads the user money from the JSON data file
     private void initializeJson() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -57,6 +58,8 @@ public class HomeGUI extends JFrame {
         history = new History();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes card layout for pages
     private void initializePages() {
         pagesLayout = new CardLayout();
         pages = new JPanel(pagesLayout);
@@ -98,6 +101,7 @@ public class HomeGUI extends JFrame {
         }
     }
 
+    // EFFECT: setting up the layout for the home page using GridBagLayout
     private void  initializeHomeScreen() {
         homePanel.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -108,6 +112,7 @@ public class HomeGUI extends JFrame {
         add(homePanel);
     }
 
+    // EFFECTS: initializes the title and the money text
     private void initializeText(GridBagConstraints constraints) {
         constraints.insets = new Insets(20, 0, 0, 0);
         constraints.gridx = 1000;
@@ -126,6 +131,8 @@ public class HomeGUI extends JFrame {
         homePanel.add(moneyText, constraints);
     }
 
+    // MODIFIES: this
+    // EFFECTS: draw the button for the home page
     private void initializeButtons(GridBagConstraints constraints) {
         constraints.anchor = constraints.CENTER;
 
@@ -147,18 +154,19 @@ public class HomeGUI extends JFrame {
         addBtn(constraints, exitBtn, 6);
     }
 
+    // EFFECTS: changes the card layout to the history panel
     public void goToHistory() {
         pagesLayout.show(pages, HISTORY_PANEL);
     }
 
-    // MODIFIES:
-    // EFFECTS:
+    // MODIFIES: this
+    // EFFECTS: a helper to add a button with y padding and its constraints
     private void addBtn(GridBagConstraints constraints, JButton btn, int padY) {
         constraints.gridy = padY;
         homePanel.add(btn, constraints);
     }
 
-    // EFFECTS:
+    // EFFECTS: saves the data into a JSON file
     public void saveSession() {
         Session session = new Session(user.getMoney(), history);
         try {
@@ -170,7 +178,7 @@ public class HomeGUI extends JFrame {
         }
     }
 
-    // EFFECTS:
+    // EFFECTS: load session history and showing a popup message that indicates the process
     public void loadSession() {
         System.out.println("Loading History...");
         try {

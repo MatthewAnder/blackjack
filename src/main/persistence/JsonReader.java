@@ -51,6 +51,7 @@ public class JsonReader {
         return session;
     }
 
+    // EFFECTS: adds the list of games in the JSNO object
     private void addGames(History history, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("histories");
         for (Object json : jsonArray) {
@@ -59,6 +60,7 @@ public class JsonReader {
         }
     }
 
+    // EFFECTS: add a single game from the JSON object to the history
     private void addGame(History history, JSONObject jsonObject) {
         int moneyOnTable = jsonObject.getInt("money on table");
         Boolean status = jsonObject.getBoolean("win");
@@ -75,14 +77,17 @@ public class JsonReader {
         history.putHistory(new Game(userHand, dealerHand, moneyOnTable, status));
     }
 
+    // EFFECTS: get the card object
     private Cards getCard(JSONObject jsonObject) {
         return new Cards(getSuit(jsonObject), getRank(jsonObject));
     }
 
+    // EFFECTS: get the suit of the card
     private Suits getSuit(JSONObject jsonObject) {
         return Suits.valueOf(jsonObject.getString("suit"));
     }
 
+    // EFFECTS: get the rank of the card
     private Ranks getRank(JSONObject jsonObject) {
         return Ranks.valueOf(jsonObject.getString("rank"));
     }

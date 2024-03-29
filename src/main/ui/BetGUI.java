@@ -15,6 +15,7 @@ public class BetGUI extends JPanel {
 
     private JTextField moneyIn;
 
+    // constructs the betting page that acts as the bridge between the home page and the game page
     public BetGUI(JPanel pages, CardLayout pagesLayout, User user, History history) {
         super();
         this.pages = pages;
@@ -30,6 +31,8 @@ public class BetGUI extends JPanel {
         initializeContent(constraints);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializa the GridBagLayout constraints
     private void initializeConstraints(GridBagConstraints c) {
         c.insets = new Insets(10, 0, 0, 0);
         c.gridx = 1000;
@@ -37,8 +40,7 @@ public class BetGUI extends JPanel {
     }
 
     // MODIFIES: this
-    // EFFECTS:  draws the JFrame window where this DrawingEditor will operate, and populates the tools to be used
-    //           to manipulate this drawing
+    // EFFECTS:  draws the JPanel and sets the layout
     private void initializeGraphics() {
         setVisible(true);
         setLayout(new GridBagLayout());
@@ -55,6 +57,8 @@ public class BetGUI extends JPanel {
         initializeButtons(constraints);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes the buttons
     private void initializeButtons(GridBagConstraints constraints) {
         JButton betBtn = new JButton("Bet");
         betBtn.addActionListener(e -> startGame());
@@ -65,6 +69,7 @@ public class BetGUI extends JPanel {
         addBtn(constraints, backBtn, 2);
     }
 
+    // EFFECTS: starts the game
     private void startGame() {
         boolean isNumber = true;
         try {
@@ -86,8 +91,8 @@ public class BetGUI extends JPanel {
         }
     }
 
-    // MODIFIES:
-    // EFFECTS:
+    // MODIFIES: this
+    // EFFECTS: add a button with its constraint to the this panel
     private void addBtn(GridBagConstraints constraints, JButton btn, int padY) {
         constraints.gridy = padY;
         add(btn, constraints);
