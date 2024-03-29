@@ -10,6 +10,7 @@ import java.awt.*;
 
 public class HistoryGUI extends JPanel {
     private JPanel pages;
+    private JScrollPane scroller;
     private CardLayout pagesLayout;
     private History history;
     private StringBuilder historyText;
@@ -25,7 +26,9 @@ public class HistoryGUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         initializeHeader(constraints);
+        initializeScroller();
         initializeButtons(constraints);
+        showHistory(constraints);
     }
 
     private void initializeHeader(GridBagConstraints c) {
@@ -50,10 +53,16 @@ public class HistoryGUI extends JPanel {
         JButton backBtn = new JButton("Go Back");
         backBtn.addActionListener(e -> pagesLayout.show(pages, "Card with Home"));
         JButton loadBtn = new JButton("Refresh");
-        loadBtn.addActionListener(e -> showHistory(constraints, loadBtn));
+        loadBtn.addActionListener(e -> showHistory(constraints));
 
         addBtn(constraints, loadBtn, 1);
         addBtn(constraints, backBtn, 2);
+    }
+
+    private void initializeScroller() {
+        scroller = new JScrollPane();
+        scroller.setPreferredSize(new Dimension(600,400));
+        scroller.getViewport().setBackground(Color.WHITE);
     }
 
     // MODIFIES:
@@ -64,10 +73,8 @@ public class HistoryGUI extends JPanel {
         add(btn, constraints);
     }
 
-    public void showHistory(GridBagConstraints constraints, JButton btn) {
+    public void showHistory(GridBagConstraints constraints) {
         if (history.getHistory() != null) {
-            JLabel historyTitle = new JLabel("History: ");
-            add(historyTitle, constraints);
             historyText = new StringBuilder();
             historyText.append("<html>");
             generateContent();
@@ -75,11 +82,7 @@ public class HistoryGUI extends JPanel {
 
             constraints.gridy = 4;
             JLabel content = new JLabel(historyText.toString());
-            JScrollPane scroller = new JScrollPane(content,
-                    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            scroller.setPreferredSize(new Dimension(600,400));
-            scroller.getViewport().setBackground(Color.WHITE);
+            scroller.setViewportView(content);
             add(scroller, constraints);
         } else {
             System.out.println("No History!");

@@ -13,11 +13,12 @@ import java.util.Enumeration;
 
 public class HomeGUI extends JFrame {
     public static final String HOME_PANEL = "Card with Home";
-    public static final String TABLE_PANEL = "Card with Table";
+    public static final String BET_PANEL = "Card with Bet";
     public static final String HISTORY_PANEL = "Card with History";
+    public static final String TABLE_PANEL = "Card with Actual Game";
 
-    public static final int WIDTH = 1000;
-    public static final int HEIGHT = 700;
+    private static final int WIDTH = 1000;
+    private static final int HEIGHT = 700;
 
     private static final String JSON_STORE = "./data/history.json";
 
@@ -61,8 +62,9 @@ public class HomeGUI extends JFrame {
         pagesLayout = new CardLayout();
         pages = new JPanel(pagesLayout);
         pages.add(homePanel, HOME_PANEL);
-        pages.add(new TableGUI(pages, pagesLayout), TABLE_PANEL);
+        pages.add(new BetGUI(pages, pagesLayout), BET_PANEL);
         pages.add(new HistoryGUI(pages, pagesLayout, history), HISTORY_PANEL);
+        pages.add(new TableGUI(), TABLE_PANEL);
 
         add(pages);
     }
@@ -128,7 +130,7 @@ public class HomeGUI extends JFrame {
         constraints.anchor = constraints.CENTER;
 
         JButton startBtn = new JButton("Start Game");
-        startBtn.addActionListener(e -> pagesLayout.show(pages, TABLE_PANEL));
+        startBtn.addActionListener(e -> pagesLayout.show(pages, BET_PANEL));
         JButton checkHistoryBtn = new JButton("Check History");
         checkHistoryBtn.addActionListener(e -> goToHistory());
         JButton saveHistoryBtn = new JButton("Save History");
