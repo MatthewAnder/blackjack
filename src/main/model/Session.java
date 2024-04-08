@@ -5,9 +5,6 @@ import persistence.Writable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 // Session object for combining all the data into one object for ease of use

@@ -7,6 +7,8 @@ import persistence.JsonWriter;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -30,7 +32,6 @@ public class HomeGUI extends JFrame {
     private CardLayout pagesLayout;
 
     private User user;
-    private Dealer dealer;
     private History history;
 
     public HomeGUI() {
@@ -81,8 +82,14 @@ public class HomeGUI extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setVisible(true);
         pack();
+        setVisible(true);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                quitGame();
+            }
+        });
         setUIFont(new FontUIResource(new Font("MV Boli", Font.PLAIN, 13)));
     }
 
@@ -118,13 +125,13 @@ public class HomeGUI extends JFrame {
         constraints.gridx = 1000;
         constraints.gridy = 0;
 
-        constraints.anchor = constraints.CENTER;
+        constraints.anchor = GridBagConstraints.CENTER;
         JLabel title = new JLabel();
         title.setFont(new Font("MV Boli", Font.BOLD, 50));
         title.setText("Welcome to Jack n' Co");
         homePanel.add(title, constraints);
 
-        constraints.anchor = constraints.LAST_LINE_START;
+        constraints.anchor = GridBagConstraints.LAST_LINE_START;
         JLabel moneyText = new JLabel();
         moneyText.setFont(new Font("MV Boli", Font.PLAIN, 15));
         moneyText.setText("Money = " + user.getMoney());
@@ -134,7 +141,7 @@ public class HomeGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: draw the button for the home page
     private void initializeButtons(GridBagConstraints constraints) {
-        constraints.anchor = constraints.CENTER;
+        constraints.anchor = GridBagConstraints.CENTER;
 
         JButton startBtn = new JButton("Start Game");
         startBtn.addActionListener(e -> pagesLayout.show(pages, BET_PANEL));
@@ -145,7 +152,7 @@ public class HomeGUI extends JFrame {
         JButton loadHistoryBtn = new JButton("Load History");
         loadHistoryBtn.addActionListener(e -> loadSession());
         JButton exitBtn = new JButton("Exit Game");
-        exitBtn.addActionListener(e -> System.exit(0));
+        exitBtn.addActionListener(e -> quitGame());
 
         addBtn(constraints, startBtn, 2);
         addBtn(constraints, checkHistoryBtn, 3);
@@ -157,6 +164,16 @@ public class HomeGUI extends JFrame {
     // EFFECTS: changes the card layout to the history panel
     public void goToHistory() {
         pagesLayout.show(pages, HISTORY_PANEL);
+    }
+
+    // EFFECTS: quits the game and prints all of the events in the event log
+    public void quitGame() {
+        for (model.Event event : EventLog.getInstance()) {
+            System.out.println(event.getDescription());
+        }
+        EventLog.getInstance().clear();
+        dispose();
+        System.exit(0);
     }
 
     // MODIFIES: this

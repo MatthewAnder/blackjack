@@ -5,6 +5,7 @@ import model.exceptions.NoMoneyException;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class User implements Player {
             throw new NegativeMoneyException();
         }
 
+        EventLog.getInstance().logEvent(new Event("$" + amount + " is taken from player's bank account."));
         money -= amount;
         return amount;
     }
@@ -44,12 +46,13 @@ public class User implements Player {
         return this.money;
     }
 
-
     // REQUIRES: card != null
     // MODIFIES: this
     // EFFECTS: add the card to the user's hand
     @Override
     public void addHand(Cards card) {
+        EventLog.getInstance().logEvent(new Event(card.getRank() + " " + card.getSuits()
+                + " is given to User"));
         hand.add(card);
     }
 
@@ -74,6 +77,7 @@ public class User implements Player {
     // EFFECTS: completely reset the hand by making a new list
     @Override
     public void resetHand() {
+        EventLog.getInstance().logEvent(new Event("Resets User's hand"));
         hand = new ArrayList<>();
     }
 }

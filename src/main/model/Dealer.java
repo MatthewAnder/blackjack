@@ -16,6 +16,8 @@ public class Dealer implements Player {
     // EFFECTS: add the card to the dealer's hand
     @Override
     public void addHand(Cards card) {
+        EventLog.getInstance().logEvent(new Event(card.getRank() + " " + card.getSuits()
+                + " is given to Dealer"));
         hand.add(card);
     }
 
@@ -36,12 +38,11 @@ public class Dealer implements Player {
         return total;
     }
 
-
-
     // MODIFIES: this
     // EFFECTS: completely reset the hand by making a new list
     @Override
     public void resetHand() {
+        EventLog.getInstance().logEvent(new Event("Resets Dealer's hand"));
         hand = new ArrayList<>();
     }
 }

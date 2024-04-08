@@ -2,15 +2,13 @@ package model;
 
 
 // In a deck
-// There is 2 suits
+// There are 2 suits
 // 10 numbers, 1 jack, 1 queen, 1 king,
-// I'll count ace as 1 for now!!!
+// I'll count ace as 1 for now !!!
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-
 
 public class Decks {
     private Suits suits;
@@ -31,7 +29,6 @@ public class Decks {
                 deckOfCards.add(new Cards(suit, rank));
             }
         }
-
     }
 
     // EFFECTS: return a deck of cards
@@ -41,7 +38,10 @@ public class Decks {
 
     // EFFECTS: randomize the card
     public Cards getRandomCard() {
+        EventLog.getInstance().logEvent(new Event("Shuffling card!"));
         int randomNumber = random.nextInt(NUMOFCARDS);
-        return this.deckOfCards.get(randomNumber);
+        Cards card = this.deckOfCards.get(randomNumber);
+        EventLog.getInstance().logEvent(new Event("Card is " + card.getRank() + " " + card.getSuits()));
+        return card;
     }
 }

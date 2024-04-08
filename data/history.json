@@ -1,35 +1,171 @@
 {
-    "money": 1070,
+    "money": 3064,
     "histories": [
         {
-            "money on table": 100,
+            "money on table": 180,
             "user hand": [
                 {
-                    "rank": "JACK",
+                    "rank": "FIVE",
                     "suit": "SPADE"
                 },
                 {
-                    "rank": "SEVEN",
+                    "rank": "SIX",
                     "suit": "DIAMOND"
+                },
+                {
+                    "rank": "EIGHT",
+                    "suit": "SPADE"
                 }
             ],
             "dealer hand": [
                 {
-                    "rank": "SIX",
-                    "suit": "CLUB"
+                    "rank": "JACK",
+                    "suit": "DIAMOND"
                 },
                 {
-                    "rank": "QUEEN",
-                    "suit": "CLUB"
+                    "rank": "FIVE",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "TEN",
+                    "suit": "DIAMOND"
                 }
             ],
             "win": true
         },
         {
-            "money on table": 150,
+            "money on table": 12,
+            "user hand": [
+                {
+                    "rank": "NINE",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "JACK",
+                    "suit": "HEART"
+                },
+                {
+                    "rank": "TEN",
+                    "suit": "DIAMOND"
+                }
+            ],
+            "dealer hand": [
+                {
+                    "rank": "TEN",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "THREE",
+                    "suit": "CLUB"
+                }
+            ],
+            "win": false
+        },
+        {
+            "money on table": 24,
             "user hand": [
                 {
                     "rank": "TEN",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "JACK",
+                    "suit": "SPADE"
+                }
+            ],
+            "dealer hand": [
+                {
+                    "rank": "ACE",
+                    "suit": "HEART"
+                },
+                {
+                    "rank": "ACE",
+                    "suit": "CLUB"
+                },
+                {
+                    "rank": "ACE",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "QUEEN",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "QUEEN",
+                    "suit": "SPADE"
+                }
+            ],
+            "win": true
+        },
+        {
+            "money on table": 100,
+            "user hand": [
+                {
+                    "rank": "THREE",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "KING",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "QUEEN",
+                    "suit": "DIAMOND"
+                }
+            ],
+            "dealer hand": [
+                {
+                    "rank": "NINE",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "NINE",
+                    "suit": "DIAMOND"
+                }
+            ],
+            "win": false
+        },
+        {
+            "money on table": 200,
+            "user hand": [
+                {
+                    "rank": "SEVEN",
+                    "suit": "HEART"
+                },
+                {
+                    "rank": "FOUR",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "FIVE",
+                    "suit": "HEART"
+                }
+            ],
+            "dealer hand": [
+                {
+                    "rank": "THREE",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "SIX",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "SIX",
+                    "suit": "CLUB"
+                },
+                {
+                    "rank": "JACK",
+                    "suit": "SPADE"
+                }
+            ],
+            "win": true
+        },
+        {
+            "money on table": 400,
+            "user hand": [
+                {
+                    "rank": "FIVE",
                     "suit": "SPADE"
                 },
                 {
@@ -37,21 +173,93 @@
                     "suit": "DIAMOND"
                 },
                 {
-                    "rank": "KING",
+                    "rank": "SIX",
+                    "suit": "HEART"
+                },
+                {
+                    "rank": "SEVEN",
                     "suit": "CLUB"
                 }
             ],
             "dealer hand": [
                 {
-                    "rank": "SIX",
+                    "rank": "SEVEN",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "THREE",
+                    "suit": "CLUB"
+                }
+            ],
+            "win": true
+        },
+        {
+            "money on table": 200,
+            "user hand": [
+                {
+                    "rank": "ACE",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "EIGHT",
                     "suit": "CLUB"
                 },
                 {
-                    "rank": "TWO",
-                    "suit": "SPADE"
+                    "rank": "JACK",
+                    "suit": "DIAMOND"
                 }
             ],
-            "win": false
+            "dealer hand": [
+                {
+                    "rank": "TWO",
+                    "suit": "HEART"
+                },
+                {
+                    "rank": "SEVEN",
+                    "suit": "CLUB"
+                },
+                {
+                    "rank": "FIVE",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "EIGHT",
+                    "suit": "DIAMOND"
+                }
+            ],
+            "win": true
+        },
+        {
+            "money on table": 400,
+            "user hand": [
+                {
+                    "rank": "JACK",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "JACK",
+                    "suit": "SPADE"
+                },
+                {
+                    "rank": "EIGHT",
+                    "suit": "CLUB"
+                }
+            ],
+            "dealer hand": [
+                {
+                    "rank": "FIVE",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "SIX",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "EIGHT",
+                    "suit": "HEART"
+                }
+            ],
+            "win": true
         }
     ]
 }

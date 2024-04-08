@@ -14,6 +14,7 @@ public class History {
     // MODIFIES: this
     // EFFECTS: put a history of a game in a form of string and is also formatted properly for good visuals
     public void putHistory(Game game) {
+        EventLog.getInstance().logEvent(new Event("Add a game to the history"));
         history.add(game);
     }
 
