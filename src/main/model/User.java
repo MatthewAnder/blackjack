@@ -8,6 +8,7 @@ import persistence.Writable;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class User implements Player {
     private int money;
@@ -31,7 +32,8 @@ public class User implements Player {
 
         EventLog.getInstance().logEvent(new Event("$" + amount + " is taken from player's bank account."));
         money -= amount;
-        return amount;
+        System.out.println(money);
+        return money;
     }
 
     // REQUIRES: amount > 0
@@ -79,5 +81,18 @@ public class User implements Player {
     public void resetHand() {
         EventLog.getInstance().logEvent(new Event("Resets User's hand"));
         hand = new ArrayList<>();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return money == user.money && Objects.equals(hand, user.hand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(money, hand);
     }
 }

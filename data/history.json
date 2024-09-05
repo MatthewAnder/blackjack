@@ -1,6 +1,34 @@
 {
-    "money": 3064,
+    "money": 1000,
     "histories": [
+        {
+            "money on table": 24,
+            "user hand": [
+                {
+                    "rank": "ACE",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "JACK",
+                    "suit": "DIAMOND"
+                }
+            ],
+            "dealer hand": [
+                {
+                    "rank": "SEVEN",
+                    "suit": "DIAMOND"
+                },
+                {
+                    "rank": "SEVEN",
+                    "suit": "CLUB"
+                },
+                {
+                    "rank": "EIGHT",
+                    "suit": "SPADE"
+                }
+            ],
+            "win": true
+        },
         {
             "money on table": 180,
             "user hand": [

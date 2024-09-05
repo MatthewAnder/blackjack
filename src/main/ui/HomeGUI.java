@@ -131,6 +131,10 @@ public class HomeGUI extends JFrame {
         title.setText("Welcome to Jack n' Co");
         homePanel.add(title, constraints);
 
+        updateMoney(constraints);
+    }
+
+    public void updateMoney(GridBagConstraints constraints) {
         constraints.anchor = GridBagConstraints.LAST_LINE_START;
         JLabel moneyText = new JLabel();
         moneyText.setFont(new Font("MV Boli", Font.PLAIN, 15));

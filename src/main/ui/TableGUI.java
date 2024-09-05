@@ -241,6 +241,7 @@ public class TableGUI extends JPanel {
         }
         checkStatus(win.toLowerCase());
         history.putHistory(new Game(user.getHand(), dealer.getHand(), moneyOnTable, isWin));
+
         pagesLayout.show(pages, HomeGUI.HOME_PANEL);
         pages.remove(this);
     }

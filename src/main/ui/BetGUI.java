@@ -75,7 +75,6 @@ public class BetGUI extends JPanel {
         try {
             moneyOnTable = Integer.parseInt(moneyIn.getText().trim());
             user.takeMoney(moneyOnTable);
-            pages.add(new TableGUI(pages, pagesLayout, moneyOnTable, history, user), HomeGUI.TABLE_PANEL);
         } catch (NumberFormatException e) {
             System.out.println("Not a number!");
             isNumber = false;
@@ -84,9 +83,10 @@ public class BetGUI extends JPanel {
             isNumber = false;
         }
 
-        if (isNumber && moneyOnTable > 0 && moneyOnTable <= user.getMoney()) {
+        if (isNumber && (moneyOnTable > 0 || moneyOnTable <= user.getMoney())) {
+            pages.add(new TableGUI(pages, pagesLayout, moneyOnTable, history, user), HomeGUI.TABLE_PANEL);
             pagesLayout.show(pages, HomeGUI.TABLE_PANEL);
-        } else {
+        } else if (!isNumber) {
             JOptionPane.showMessageDialog(null, "Something is not right!");
         }
     }
